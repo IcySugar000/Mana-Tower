@@ -11,10 +11,19 @@ struct FMagicSpell {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName Name;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<uint8> Activator;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName Name;
+	bool CanReverse = false;  // 是否可以反向绘制
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool CanTurn = false;  // 是否可以转动方向绘制
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool CanStartAtAny = false;  // 是否可以从任何点开始绘制
 };
 
 
@@ -34,9 +43,12 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	int32 ButtonNum;
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	void SetButtonNum(int32 TotalButtonNum);
 	void Translate(TArray<uint8> InputActivator);
 };

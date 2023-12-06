@@ -9,7 +9,6 @@ USpellTranslator::USpellTranslator()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
-
 	// ...
 }
 
@@ -32,14 +31,58 @@ void USpellTranslator::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	// ...
 }
 
+void USpellTranslator::SetButtonNum(int32 TotalButtonNum) {
+	ButtonNum = TotalButtonNum;
+}
+
 void USpellTranslator::Translate(TArray<uint8> InputActivator) {
 	UE_LOG(LogTemp, Warning, TEXT("Translating..."));
 	for(auto digit: InputActivator) UE_LOG(LogTemp, Warning, TEXT("%d"), digit);
 	if(MagicList.IsEmpty()) UE_LOG(LogTemp, Warning, TEXT("Empty List!"));
+
 	for(auto spell: MagicList) {
-		for (auto digit : spell.Activator) UE_LOG(LogTemp, Warning, TEXT("spell %d"), digit);
-		if(spell.Activator == InputActivator) {
-			UE_LOG(LogTemp, Warning, TEXT("%s"), *spell.Name.ToString());
+		TArray < TArray<uint8> > allActivators;  // 用于储存某activator变换后的所有activator
+		allActivators.Emplace(spell.Activator);
+
+		if(spell.CanStartAtAny) {
+			TArray copySpell(spell.Activator);
+			copySpell.RemoveAt(copySpell.Num()-1);
+			allActivators.RemoveAt(0);
+
+			for (int i = 0; i < copySpell.Num(); ++i) {
+				TArray<uint8> tempSpell;
+				for (int j = 0; j < copySpell.Num(); ++j) tempSpell.Emplace(copySpell[(i + j) % copySpell.Num()]);
+				tempSpell.Emplace(copySpell[i]);
+				allActivators.Emplace(tempSpell);
+			}
+		}
+
+		if(spell.CanReverse) {
+			int32 num = allActivators.Num();
+			for (int i = 0; i < num; ++i) {
+				TArray<uint8> tempSpell;
+				for (uint8 digit : allActivators[i]) tempSpell.EmplaceAt(0, digit);
+				allActivators.Emplace(tempSpell);
+			}
+		}
+
+		if(spell.CanTurn) {
+			for(auto s: allActivators) {
+				for (int i = 0; i < ButtonNum; ++i) {
+					TArray<uint8> tempSpell;
+					for (uint8 digit : spell.Activator) tempSpell.Emplace((digit + i) % ButtonNum);
+					if (tempSpell == InputActivator) {
+						UE_LOG(LogTemp, Warning, TEXT("%s"), *spell.Name.ToString());
+					}
+				}
+			}
+		}
+		else {
+			for (auto s : allActivators) {
+				if (s == InputActivator) {
+					UE_LOG(LogTemp, Warning, TEXT("%s"), *spell.Name.ToString());
+				}
+			}
 		}
 	}
 }

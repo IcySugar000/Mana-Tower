@@ -29,6 +29,9 @@ void APlayerBase::BeginPlay()
 
     MyMagicCircle = CreateWidget<UUserWidget>(Controller, MagicCircleClass);
     if(MyMagicCircle) MyMagicCircle->AddToViewport();
+
+    auto tempCircle = Cast<UMagicCircle>(MyMagicCircle);
+    Translator->SetButtonNum(tempCircle->ButtonMap.Num());
 }
 
 void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -47,9 +50,6 @@ void APlayerBase::Tick(float DeltaSeconds)
 }
 
 void APlayerBase::CastSpell(TArray<uint8> ExistLines) {
-    for(auto btn: ExistLines) {
-        UE_LOG(LogTemp, Warning, TEXT("%d"), btn);
-    }
     if(Translator) {
         Translator->Translate(ExistLines);
     }
