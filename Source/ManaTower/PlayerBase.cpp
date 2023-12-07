@@ -15,7 +15,8 @@ APlayerBase::APlayerBase()
     FlipbookLibrary.FindOrAdd(FString("Run"));
 
     Translator = CreateDefaultSubobject<USpellTranslator>(TEXT("Spell Translator"));
-    //
+    Translator->MyCharacter = this;
+
     // if(Translator) UE_LOG(LogTemp, Warning, TEXT("Yes Translator!"));
 }
 
@@ -28,7 +29,7 @@ void APlayerBase::BeginPlay()
     Controller->SetShowMouseCursor(true);
 
     MyMagicCircle = CreateWidget<UUserWidget>(Controller, MagicCircleClass);
-    if(MyMagicCircle) MyMagicCircle->AddToViewport();
+    if (MyMagicCircle) MyMagicCircle->AddToViewport();
 
     auto tempCircle = Cast<UMagicCircle>(MyMagicCircle);
     Translator->SetButtonNum(tempCircle->ButtonMap.Num());
@@ -50,7 +51,7 @@ void APlayerBase::Tick(float DeltaSeconds)
 }
 
 void APlayerBase::CastSpell(TArray<uint8> ExistLines) {
-    if(Translator) {
+    if (Translator) {
         Translator->Translate(ExistLines);
     }
     else {
@@ -72,12 +73,12 @@ void APlayerBase::UpdateFlipbook()
 {
     auto FlipbookComponent = GetSprite();
     auto velocity = GetVelocity();
-    if(velocity.Size() > 0) {
+    if (velocity.Size() > 0) {
         FlipbookComponent->SetFlipbook(FlipbookLibrary[FString("Run")]);
-        if(velocity.X < 0) {
+        if (velocity.X < 0) {
             Controller->SetControlRotation(FRotator(0, 180, 0));
         }
-        if(velocity.X > 0) {
+        if (velocity.X > 0) {
             Controller->SetControlRotation(FRotator(0, 0, 0));
         }
     }
@@ -85,4 +86,3 @@ void APlayerBase::UpdateFlipbook()
         FlipbookComponent->SetFlipbook(FlipbookLibrary[FString("Idle")]);
     }
 }
-

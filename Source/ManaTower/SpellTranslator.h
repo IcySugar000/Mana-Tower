@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PaperCharacter.h"
 #include "Components/ActorComponent.h"
 #include "SpellTranslator.generated.h"
 
@@ -27,12 +28,12 @@ struct FMagicSpell {
 };
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class MANATOWER_API USpellTranslator : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	USpellTranslator();
 
@@ -45,9 +46,13 @@ protected:
 
 	int32 ButtonNum;
 
-public:	
+public:
+	UPROPERTY()
+	APaperCharacter* MyCharacter;
+
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void CastSpell(FName Name, int Rotation = 0);
 
 	void SetButtonNum(int32 TotalButtonNum);
 	void Translate(TArray<uint8> InputActivator);

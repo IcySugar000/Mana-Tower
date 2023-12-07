@@ -19,7 +19,7 @@ void USpellTranslator::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+
 }
 
 
@@ -31,22 +31,25 @@ void USpellTranslator::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	// ...
 }
 
+void USpellTranslator::CastSpell(FName Name, int Rotation) {
+}
+
 void USpellTranslator::SetButtonNum(int32 TotalButtonNum) {
 	ButtonNum = TotalButtonNum;
 }
 
 void USpellTranslator::Translate(TArray<uint8> InputActivator) {
 	UE_LOG(LogTemp, Warning, TEXT("Translating..."));
-	for(auto digit: InputActivator) UE_LOG(LogTemp, Warning, TEXT("%d"), digit);
-	if(MagicList.IsEmpty()) UE_LOG(LogTemp, Warning, TEXT("Empty List!"));
+	for (auto digit : InputActivator) UE_LOG(LogTemp, Warning, TEXT("%d"), digit);
+	if (MagicList.IsEmpty()) UE_LOG(LogTemp, Warning, TEXT("Empty List!"));
 
-	for(auto spell: MagicList) {
+	for (auto spell : MagicList) {
 		TArray < TArray<uint8> > allActivators;  // 用于储存某activator变换后的所有activator
 		allActivators.Emplace(spell.Activator);
 
-		if(spell.CanStartAtAny) {
+		if (spell.CanStartAtAny) {
 			TArray copySpell(spell.Activator);
-			copySpell.RemoveAt(copySpell.Num()-1);
+			copySpell.RemoveAt(copySpell.Num() - 1);
 			allActivators.RemoveAt(0);
 
 			for (int i = 0; i < copySpell.Num(); ++i) {
@@ -57,7 +60,7 @@ void USpellTranslator::Translate(TArray<uint8> InputActivator) {
 			}
 		}
 
-		if(spell.CanReverse) {
+		if (spell.CanReverse) {
 			int32 num = allActivators.Num();
 			for (int i = 0; i < num; ++i) {
 				TArray<uint8> tempSpell;
@@ -66,12 +69,13 @@ void USpellTranslator::Translate(TArray<uint8> InputActivator) {
 			}
 		}
 
-		if(spell.CanTurn) {
-			for(auto s: allActivators) {
+		if (spell.CanTurn) {
+			for (auto s : allActivators) {
 				for (int i = 0; i < ButtonNum; ++i) {
 					TArray<uint8> tempSpell;
 					for (uint8 digit : spell.Activator) tempSpell.Emplace((digit + i) % ButtonNum);
 					if (tempSpell == InputActivator) {
+						CastSpell(spell.Name, i);
 						UE_LOG(LogTemp, Warning, TEXT("%s"), *spell.Name.ToString());
 					}
 				}
@@ -80,10 +84,10 @@ void USpellTranslator::Translate(TArray<uint8> InputActivator) {
 		else {
 			for (auto s : allActivators) {
 				if (s == InputActivator) {
+					CastSpell(spell.Name);
 					UE_LOG(LogTemp, Warning, TEXT("%s"), *spell.Name.ToString());
 				}
 			}
 		}
 	}
 }
-

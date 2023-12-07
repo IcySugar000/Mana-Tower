@@ -10,7 +10,7 @@
 #include "PlayerBase.generated.h"
 
 /**
- * 
+ *
  */
 
 UCLASS()
@@ -38,12 +38,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UUserWidget* MyMagicCircle;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UUserWidget> MagicCircleClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	USpellTranslator* Translator;
+	TObjectPtr<USpellTranslator> Translator;
 
 	APlayerBase();
 };
