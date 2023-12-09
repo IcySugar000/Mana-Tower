@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FireballProjectile.h"
 #include "SpellTranslator.h"
 #include "FlaminaSpellTranslator.generated.h"
 
@@ -18,6 +19,8 @@ public:
 	virtual void CastSpell(FName Name, int Rotation = 0) override;
 
 	UFUNCTION()
-	void Fireball(int rotation);
+	void Fireball(int Rotation);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<APaperCharacter> FireballClass = AFireballProjectile::StaticClass();
 };

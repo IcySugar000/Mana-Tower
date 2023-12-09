@@ -47,7 +47,7 @@ protected:
 	int32 ButtonNum;
 
 public:
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	APaperCharacter* MyCharacter;
 
 	// Called every frame
