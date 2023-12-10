@@ -89,3 +89,7 @@ void UMazeGeneratorComponent::Generate()
 	}
 }
 
+TArray< TPair<FMazeNode, FMazeNode> > UMazeGeneratorComponent::GetResult() {
+	return Paths;
+}
+

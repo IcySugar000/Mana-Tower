@@ -62,6 +62,12 @@ void APlayerBase::CastSpell(TArray<uint8> ExistLines) {
 void APlayerBase::MoveRight(float ScaleValue)
 {
     AddMovementInput(FVector(1, 0, 0), ScaleValue, false);
+    if(ScaleValue < 0.0) {
+        Controller->SetControlRotation(FRotator(0, 180, 0));
+    }
+    else {
+        Controller->SetControlRotation(FRotator(0, 0, 0));
+    }
 }
 
 void APlayerBase::MoveUp(float ScaleValue)

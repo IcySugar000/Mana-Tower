@@ -42,6 +42,7 @@ public:
 
 	void SetWorldSize(int WorldSize);
 	void Generate();
+	TArray< TPair<FMazeNode, FMazeNode> > GetResult();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Size = 1;
