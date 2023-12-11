@@ -18,9 +18,9 @@ class MANATOWER_API AEnemyBase : public APaperCharacter
 private:
 	float Health;//健康状态：生命值
 	bool IsDead;//是否死亡
-	float speed;//速度
-	float attack;//攻击力
-	float defence;//防御力
+	float Speed;//速度
+	float Attack;//攻击力
+	float Defense;//防御力
 
 	void UpdateFlipbook();
 

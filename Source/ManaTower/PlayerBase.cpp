@@ -44,6 +44,14 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
     InputComponent->BindAxis(TEXT("Move_Up"), this, &APlayerBase::MoveUp);
 }
 
+float APlayerBase::GetHealth() {
+    return Health;
+}
+
+float APlayerBase::GetMaxHealth() {
+    return MaxHealth;
+}
+
 void APlayerBase::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);

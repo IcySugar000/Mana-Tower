@@ -27,20 +27,11 @@ protected:
 	void MoveUp(float ScaleValue);
 	void UpdateFlipbook();
 
-	float Attckrate;
-	float Defencerate;
-	float Maxblood;
-	float Currentblood;
-	float Defaultblood;
-
-	float Is_dead(float Currentblood)
-	{
-		if (Currentblood == 0)
-			return 0;
-		else
-			return Currentblood;
-	}
-
+	float Attack;
+	float Defense;
+	float MaxHealth;
+	float Health;
+	// float Defaultblood;
 	
 public:
 	virtual void Tick(float DeltaSeconds) override;
@@ -59,6 +50,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<USpellTranslator> Translator;
+
+	UFUNCTION(BlueprintCallable)
+	float GetHealth();
+
+	UFUNCTION(BlueprintCallable)
+	float GetMaxHealth();
 
 	APlayerBase();
 
