@@ -27,6 +27,21 @@ protected:
 	void MoveUp(float ScaleValue);
 	void UpdateFlipbook();
 
+	float Attckrate;
+	float Defencerate;
+	float Maxblood;
+	float Currentblood;
+	float Defaultblood;
+
+	float Is_dead(float Currentblood)
+	{
+		if (Currentblood == 0)
+			return 0;
+		else
+			return Currentblood;
+	}
+
+	
 public:
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -46,4 +61,5 @@ public:
 	TObjectPtr<USpellTranslator> Translator;
 
 	APlayerBase();
+
 };
