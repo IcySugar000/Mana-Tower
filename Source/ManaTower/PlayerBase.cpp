@@ -29,8 +29,10 @@ void APlayerBase::BeginPlay()
     Controller->SetShowMouseCursor(true);
 
     MyMagicCircle = CreateWidget<UUserWidget>(Controller, MagicCircleClass);
-    if (MyMagicCircle) MyMagicCircle->AddToViewport();
+    if (MyMagicCircle) MyMagicCircle->AddToViewport();                      //魔法阵的AddToViewport
 
+    //MyHealthbar= CreateWidget<UUserWidget>(Controller, MagicCircleClass);//血条的AddToViewport
+    
     auto tempCircle = Cast<UMagicCircle>(MyMagicCircle);
     Translator->SetButtonNum(tempCircle->ButtonMap.Num());
 }
