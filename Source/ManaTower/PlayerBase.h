@@ -51,13 +51,21 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 
-	UUserWidget* MyHealthbar;					//Widget MyHealthbar
+	UUserWidget* MyHealthbar;					//Widget MyHealthbar的构建
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+
+	UUserWidget* MyManabar;					//Widget MyManabar的构建
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
-	TSubclassOf<UUserWidget> MagicCircleClass;
+	TSubclassOf<UUserWidget> MagicCircleClass;				//MagicCircleClass的声明
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
-	TSubclassOf<UUserWidget> HealthBarClass;
+	TSubclassOf<UUserWidget> HealthBarClass;				//HealthBarClass的声明
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+
+	TSubclassOf<UUserWidget> ManaBarClass;					//ManaBarClass的声明
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<USpellTranslator> Translator;
@@ -68,8 +76,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	float GetMaxHealth();			//获得最大生命值的函数
 
+	UFUNCTION(BlueprintCallable)
 	float GetMaxMana();				//获得最大魔法值的函数
 
+	UFUNCTION(BlueprintCallable)
 	float GetMana();				//获得当前魔法值的函数
 
 	APlayerBase();
