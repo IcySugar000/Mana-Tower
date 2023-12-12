@@ -29,16 +29,19 @@ void APlayerBase::BeginPlay()
     Controller->SetShowMouseCursor(true);
 
     MyMagicCircle = CreateWidget<UUserWidget>(Controller, MagicCircleClass);
-    if (MyMagicCircle) MyMagicCircle->AddToViewport();                      //魔法阵的AddToViewport
+    if (MyMagicCircle) MyMagicCircle->AddToViewport();                      //魔法阵Widget的显示AddToViewport
 
-    MyHealthbar= CreateWidget<UUserWidget>(Controller, HealthBarClass);  //血条的AddToViewport
+    MyHealthbar= CreateWidget<UUserWidget>(Controller, HealthBarClass);  //血条Widget的显示AddToViewport
     if (MyHealthbar) MyHealthbar->AddToViewport();
     
+    MyManabar = CreateWidget<UUserWidget>(Controller, ManaBarClass);  //蓝条Widget的显示AddToViewport
+    if (MyManabar) MyManabar->AddToViewport();
+
     auto tempCircle = Cast<UMagicCircle>(MyMagicCircle);
     Translator->SetButtonNum(tempCircle->ButtonMap.Num());
 }
 
-void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)  //设置玩家输入
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
     check(InputComponent);
@@ -47,14 +50,24 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
     InputComponent->BindAxis(TEXT("Move_Up"), this, &APlayerBase::MoveUp);
 }
 
-float APlayerBase::GetHealth() {
+float APlayerBase::GetHealth() 
+{
     return Health;
 }
 
-float APlayerBase::GetMaxHealth() {
+float APlayerBase::GetMaxHealth() 
+{
     return MaxHealth;
 }
 
+float APlayerBase::GetMana() 
+{
+    return Mana;
+}
+float APlayerBase::GetMaxMana() 
+{
+    return MaxMana;
+}
 void APlayerBase::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
@@ -70,7 +83,7 @@ void APlayerBase::CastSpell(TArray<uint8> ExistLines) {
     }
 }
 
-void APlayerBase::MoveRight(float ScaleValue)
+void APlayerBase::MoveRight(float ScaleValue)       //负数表示向左移动
 {
     AddMovementInput(FVector(1, 0, 0), ScaleValue, false);
     if(ScaleValue < 0.0) {
@@ -81,7 +94,7 @@ void APlayerBase::MoveRight(float ScaleValue)
     }
 }
 
-void APlayerBase::MoveUp(float ScaleValue)
+void APlayerBase::MoveUp(float ScaleValue)      //负数代表向下移动
 {
     AddMovementInput(FVector(0, 0, 1), ScaleValue, false);
 }
