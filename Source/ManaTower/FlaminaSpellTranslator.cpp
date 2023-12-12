@@ -19,4 +19,5 @@ void UFlaminaSpellTranslator::Fireball(int Rotation) {
 	auto myFireball = GetWorld()->SpawnActor<AFireballProjectile>(FireballClass,
 		GetOwner()->GetActorLocation(),
 		FRotator(-60.0 * Rotation, 0.0, 0.0));
+	myFireball->SetSourcePlayer(GetTypedOuter<APaperCharacter>());
 }
