@@ -52,6 +52,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UUserWidget> MagicCircleClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UUserWidget> HealthBarClass;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<USpellTranslator> Translator;
 
