@@ -19,9 +19,12 @@ class MANATOWER_API ARoomBase : public APaperGroupedSpriteActor
 
 private:
 	UPaperGroupedSpriteComponent* GroupedSpriteComponent;
+	FVector CenterLocation;
 
 public:
 	ARoomBase();
+	void SetCenterLocation(FVector location);
+	FVector GetCenterLocation();
 
 	virtual void BeginPlay() override;
 

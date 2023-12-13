@@ -48,14 +48,19 @@ void ALevelMap::BeginPlay()
 		int roomXIndex = i / Size;
 		int roomYIndex = i % Size;
 		ARoomBase* newRoom;
+
+		FString type = "";
 		if(roomXIndex == EndPos.Get<0>() && roomYIndex == EndPos.Get<1>()) {  // 作为终点，设置为EndRoom
 			newRoom = GetWorld()->SpawnActor<ARoomBase>(EndRoom, GetActorLocation(), GetActorRotation());
+			type = "End";
 		}
 		else if(roomXIndex == 0 && roomYIndex == 0) {  // 作为起点，设置为基类Room
 			newRoom = GetWorld()->SpawnActor<ARoomBase>(RoomBase, GetActorLocation(), GetActorRotation());
+			type = "Start";
 		}
 		else {  // 其他房间为生成怪物的房间
 			newRoom = GetWorld()->SpawnActor<ARoomBase>(EnemyRoom, GetActorLocation(), GetActorRotation());
+			type = "Enemy";
 		}
 
 		// 调整房间位置
@@ -65,8 +70,16 @@ void ALevelMap::BeginPlay()
 		float roomY = (roomXIndex + roomYIndex) * length * FMath::Sin(FMath::DegreesToRadians(60.0));
 		
 		newRoom->SetActorLocation(FVector(roomX, 0.0, roomY));
+		newRoom->SetCenterLocation(FVector(roomX, 0.0, roomY));
 
 		newRoom->SetEdge(doors[i]);
+
+		// 一些后续的生成
+		if(type == "Enemy") {
+			auto enemyRoom = Cast<AEnemyRoom>(newRoom);
+			enemyRoom->SetEnemyTypes(EnemyTypes);
+			enemyRoom->SpawnEnemy();
+		}
 
 		RoomArray.Emplace(newRoom);
 	}

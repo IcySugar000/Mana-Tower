@@ -8,6 +8,14 @@ ARoomBase::ARoomBase() {
 	GroupedSpriteComponent = GetRenderComponent();
 }
 
+void ARoomBase::SetCenterLocation(FVector location) {
+	CenterLocation = location;
+}
+
+FVector ARoomBase::GetCenterLocation() {
+	return CenterLocation;
+}
+
 void ARoomBase::BeginPlay()
 {
 	Super::BeginPlay();

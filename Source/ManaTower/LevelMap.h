@@ -48,5 +48,8 @@ public:
 	TSubclassOf<ARoomBase> EnemyRoom = AEnemyRoom::StaticClass();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray< TSubclassOf<AEnemyBase> > EnemyTypes;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<ARoomBase*> RoomArray;  // 压缩储存的二维数组，大小为Size*Size
 };
