@@ -8,15 +8,16 @@ AEnemyBase::AEnemyBase()
 	FlipbookLibrary.FindOrAdd(FString("Idle"));
 	FlipbookLibrary.FindOrAdd(FString("Move"));
 
-    IsDead = false;//活着的怪物
+    IsDead = false;
+    IsHadReportedDead = false;//活着的怪物
+    MaxHealth = 80;
+    Defense = 0;
 }
 
 void AEnemyBase::BeginPlay()
 {
     Super::BeginPlay();
 
-    if (MaxHealth <= 0)
-        MaxHealth = 80;//如果最大生命值出现设置错误，那么就改成80
     Health = MaxHealth;//生命初值为最大生命值
 }
 
@@ -32,7 +33,9 @@ void AEnemyBase::Tick(float DeltaSeconds) {
 
 float AEnemyBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-    Health -= DamageAmount;
+    float RealDamageAmout = DamageAmount * (1.0 - Defense);//怪物受到的真实伤害
+    Health -= RealDamageAmout;
+    UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);//报告收到的伤害
     if(Health <= 0 && !IsDead) {
         Health = 0;
         Die();
@@ -60,5 +63,10 @@ void AEnemyBase::UpdateFlipbook()
 
 void AEnemyBase::Die() {
     IsDead = true;
-    UE_LOG(LogTemp, Warning, TEXT("AHHHH. I DIED"));
+    if (!IsHadReportedDead)
+    {
+        IsHadReportedDead = true;
+        UE_LOG(LogTemp, Warning, TEXT("AHHHH. I DIED"));
+    }
+       
 }

@@ -15,12 +15,13 @@ class MANATOWER_API AEnemyBase : public APaperCharacter
 {
 	GENERATED_BODY()
 
-private:
+protected:
 	float Health;//健康状态：生命值
 	bool IsDead;//是否死亡
 	float Speed;//速度
 	float Attack;//攻击力
 	float Defense;//防御力
+	bool IsHadReportedDead;//是否报告死亡过
 
 	void UpdateFlipbook();
 
@@ -35,9 +36,9 @@ public:
 	void Die();//死亡
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)//这行是使得下面定义的一行变量被Unreal看到
-	float MaxHealth = 100;//对基类的MaxHealth赋初值，防止错误
+	float MaxHealth;//对基类的MaxHealth赋初值，防止错误
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FString, UPaperFlipbook*> FlipbookLibrary;
-
+	
 };
