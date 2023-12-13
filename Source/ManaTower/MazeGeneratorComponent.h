@@ -39,6 +39,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	TTuple<int32, int32, int32> GetEndRoomPosition();  // 获取终点坐标
 
 	void SetWorldSize(int WorldSize);
 	void Generate();

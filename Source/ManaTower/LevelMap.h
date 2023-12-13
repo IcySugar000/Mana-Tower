@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EndRoom.h"
+#include "EnemyRoom.h"
 #include "MazeGeneratorComponent.h"
 #include "RoomBase.h"
 #include "GameFramework/Actor.h"
@@ -38,6 +40,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<ARoomBase> RoomBase = ARoomBase::StaticClass();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<ARoomBase> EndRoom = AEndRoom::StaticClass();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<ARoomBase> EnemyRoom = AEnemyRoom::StaticClass();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<ARoomBase*> RoomArray;  // 压缩储存的二维数组，大小为Size*Size

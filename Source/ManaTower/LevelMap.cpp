@@ -3,6 +3,8 @@
 
 #include "LevelMap.h"
 
+#include "EndRoom.h"
+
 // Sets default values
 ALevelMap::ALevelMap()
 {
@@ -38,13 +40,25 @@ void ALevelMap::BeginPlay()
 		}
 	}
 
+	auto EndPos = MazeGenerator->GetEndRoomPosition();
+	UE_LOG(LogTemp, Warning, TEXT("END: %d, %d"), EndPos.Get<0>(), EndPos.Get<1>());
+
 	// 初始化房间数组
 	for(int i=0; i<Size * Size; ++i) {
-		auto newRoom = GetWorld()->SpawnActor<ARoomBase>(RoomBase, GetActorLocation(), GetActorRotation());
-
-		// 调整房间位置
 		int roomXIndex = i / Size;
 		int roomYIndex = i % Size;
+		ARoomBase* newRoom;
+		if(roomXIndex == EndPos.Get<0>() && roomYIndex == EndPos.Get<1>()) {  // 作为终点，设置为EndRoom
+			newRoom = GetWorld()->SpawnActor<ARoomBase>(EndRoom, GetActorLocation(), GetActorRotation());
+		}
+		else if(roomXIndex == 0 && roomYIndex == 0) {  // 作为起点，设置为基类Room
+			newRoom = GetWorld()->SpawnActor<ARoomBase>(RoomBase, GetActorLocation(), GetActorRotation());
+		}
+		else {  // 其他房间为生成怪物的房间
+			newRoom = GetWorld()->SpawnActor<ARoomBase>(EnemyRoom, GetActorLocation(), GetActorRotation());
+		}
+
+		// 调整房间位置
 		float length = 2 * newRoom->EdgeLength * FMath::Cos(FMath::DegreesToRadians(30.0));
 		
 		float roomX = (roomXIndex - roomYIndex) * length * FMath::Cos(FMath::DegreesToRadians(60.0));
@@ -56,6 +70,7 @@ void ALevelMap::BeginPlay()
 
 		RoomArray.Emplace(newRoom);
 	}
+
 }
 
 bool ALevelMap::IsInBound(int x, int y) {
