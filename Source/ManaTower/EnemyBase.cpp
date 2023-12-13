@@ -53,11 +53,13 @@ float AEnemyBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 {
     float RealDamageAmout = DamageAmount * (1.0 - Defense);//怪物受到的真实伤害
     Health -= RealDamageAmout;
-    UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);//报告收到的伤害
-    if(Health <= 0 && !IsDead) {
+    if (Health <= 0) {
         Health = 0;
-        Die();
+        if (!IsDead)
+            Die();
     }
+    UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);//报告收到的伤害
+    
     return 0.0f;
 }
 
@@ -101,10 +103,13 @@ void AEnemyBase::MoveToPlayer()
 void AEnemyBase::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
     if (AttackCD > 0.0) return;
+
+    if (!Cast<APlayerBase>(OtherActor)) return;
     
     auto enemy = Cast<APlayerBase>(OtherActor);
     float Damage = Attack;
     UGameplayStatics::ApplyDamage(enemy, Damage, GetController(), this, DamageTypeClass);
+    UE_LOG(LogTemp, Warning, TEXT("HAHA, I ATTACK YOU!!!"));
     AttackCD = MaxAttackCD;
 }
 
