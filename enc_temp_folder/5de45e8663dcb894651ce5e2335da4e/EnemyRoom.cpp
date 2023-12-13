@@ -43,7 +43,8 @@ void AEnemyRoom::OnEnter(UPrimitiveComponent* OverlappedComponent, AActor* Other
 	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) {
 	if (IsHadEntered) return;
 
-	if (Cast<APlayerBase>(OtherActor)) {
+	auto player = Cast<APlayerBase>(OtherActor);
+	if (player) {
 		IsHadEntered = true;
 		SpawnEnemy();
 	}
