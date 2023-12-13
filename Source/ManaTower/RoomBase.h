@@ -5,8 +5,7 @@
 #include "CoreMinimal.h"
 #include "PaperGroupedSpriteActor.h"
 #include "PaperFlipbookComponent.h"
-#include "PlayerBase.h"
-#include "Engine/InstancedStaticMesh.h"
+#include "Components/SphereComponent.h"
 #include "RoomBase.generated.h"
 
 /**
@@ -37,8 +36,13 @@ public:
 	UPaperSprite* EdgeOpen;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<USphereComponent> DetectSphere;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float EdgeLength = 1024;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float EdgeWidth = 32;
+
+	FScriptDelegate DelegateEnter;  // 进入房间的委托事件
 };

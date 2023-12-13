@@ -23,9 +23,11 @@ protected:
 
 	virtual void BeginPlay() override;			//开始游戏
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
-	void MoveRight(float ScaleValue);
-	void MoveUp(float ScaleValue);
-	void UpdateFlipbook();
+	void MoveRight(float ScaleValue);			//左右移动
+	void MoveUp(float ScaleValue);				//上下移动
+	void UpdateFlipbook();						//更改动画
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;//玩家获取伤害获取伤害
+	void Die();									//死亡
 
 	float Attack;				//攻击力
 	float Defense;				//防御力
@@ -33,6 +35,8 @@ protected:
 	float Health;				//当前生命值
 	// float Defaultblood;		//受到的伤害
 
+	bool IsDead;                //判断死亡
+	bool IsHadReportedDead;		//是否报告死亡过
 	float MaxMana;				//最大魔法值
 	float Mana;					//当前魔法值
 	// float CostMana;				//消耗的魔法值

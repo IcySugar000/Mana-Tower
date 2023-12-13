@@ -3,9 +3,15 @@
 
 #include "RoomBase.h"
 #include "PaperGroupedSpriteComponent.h"
+#include "Components/SphereComponent.h"
 
 ARoomBase::ARoomBase() {
 	GroupedSpriteComponent = GetRenderComponent();
+
+	// ¥¥Ω®ºÏ≤‚»¶
+	DetectSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Detect Sphere"));
+	DetectSphere->SetSphereRadius((EdgeLength / 2.0f * FMath::Sqrt(3.0) - EdgeWidth) * 0.95);  // ƒ⁄«–‘≤ºÏ≤‚»¶
+	DetectSphere->SetupAttachment(RootComponent);
 }
 
 void ARoomBase::SetCenterLocation(FVector location) {
@@ -37,3 +43,4 @@ void ARoomBase::SetEdge(TArray<int> doors) {
 		}
 	}
 }
+
