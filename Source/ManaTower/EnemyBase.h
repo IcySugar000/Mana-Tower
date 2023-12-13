@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "PaperCharacter.h"
 #include "PaperFlipbookComponent.h"
+#include "EnemyBaseAttackDamageType.h"
 #include "EnemyBase.generated.h"
 
 /**
@@ -22,6 +23,7 @@ protected:
 	float Attack;//攻击力
 	float Defense;//防御力
 	bool IsHadReportedDead;//是否报告死亡过
+	float AttackCD;//攻击CD
 
 	void UpdateFlipbook();
 
@@ -35,10 +37,20 @@ public:
 
 	void Die();//死亡
 
+	void MoveToPlayer();//移动向玩家
+
+	UFUNCTION()
+	void AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)//这行是使得下面定义的一行变量被Unreal看到
 	float MaxHealth;//对基类的MaxHealth赋初值，防止错误
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)//这行是使得下面定义的一行变量被Unreal看到
+	float MaxAttackCD;//最大攻击CD
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FString, UPaperFlipbook*> FlipbookLibrary;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UDamageType> DamageTypeClass = UEnemyBaseAttackDamageType::StaticClass();
 };

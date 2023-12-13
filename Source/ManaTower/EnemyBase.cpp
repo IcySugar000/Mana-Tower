@@ -1,7 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "EnemyBase.h"
+#include "PlayerBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/CapsuleComponent.h"
+
 
 AEnemyBase::AEnemyBase() 
 {
@@ -11,7 +14,16 @@ AEnemyBase::AEnemyBase()
     IsDead = false;
     IsHadReportedDead = false;//活着的怪物
     MaxHealth = 80;
+    Speed = 1;
+    Attack = 10.0;
     Defense = 0;
+    MaxAttackCD = 1;
+    AttackCD = 0;
+
+    auto capsule = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));
+    FScriptDelegate DelegateOverlap;
+    DelegateOverlap.BindUFunction(this, "AttackPlayer");
+    capsule->OnComponentBeginOverlap.Add(DelegateOverlap);
 }
 
 void AEnemyBase::BeginPlay()
@@ -26,9 +38,15 @@ void AEnemyBase::Tick(float DeltaSeconds) {
 
 	UpdateFlipbook();
 
+    MoveToPlayer();
+
 	if (Health <= 0) {
 		Die();
 	}
+
+    if (AttackCD > 0.0) 
+        AttackCD -= DeltaSeconds;
+
 }
 
 float AEnemyBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
@@ -50,10 +68,10 @@ void AEnemyBase::UpdateFlipbook()
     if (velocity.Size() > 0) {
         FlipbookComponent->SetFlipbook(FlipbookLibrary[FString("Move")]);
         if (velocity.X < 0) {
-            SetActorScale3D(FVector(-1.0, 1.0, 1.0));
+            SetActorScale3D(FVector(1.0, 1.0, 1.0));
         }
         if (velocity.X > 0) {
-            SetActorScale3D(FVector(1.0, 1.0, 1.0));
+            SetActorScale3D(FVector(-1.0, 1.0, 1.0));
         }
     }
     else {
@@ -70,3 +88,23 @@ void AEnemyBase::Die() {
     }
        
 }
+
+void AEnemyBase::MoveToPlayer()
+{
+    auto location = GetActorLocation();
+    auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
+    auto playerLoaction = player->GetActorLocation();
+    auto locationVec = playerLoaction - location;
+    AddMovementInput(locationVec, Speed, false);
+}
+
+void AEnemyBase::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    if (AttackCD > 0.0) return;
+    
+    auto enemy = Cast<APlayerBase>(OtherActor);
+    float Damage = Attack;
+    UGameplayStatics::ApplyDamage(enemy, Damage, GetController(), this, DamageTypeClass);
+    AttackCD = MaxAttackCD;
+}
+
