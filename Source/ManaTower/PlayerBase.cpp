@@ -116,3 +116,27 @@ void APlayerBase::UpdateFlipbook()
         FlipbookComponent->SetFlipbook(FlipbookLibrary[FString("Idle")]);
     }
 }
+
+float APlayerBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+    float RealDamageAmout = DamageAmount * (1.0 - Defense);//玩家所受到的真实伤害
+    Health -= RealDamageAmout;
+    UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);//报告所受到的伤害
+    if (Health <= 0 && !IsDead) 
+    {
+        Health = 0;
+        Die();
+    }
+    return 0.0f;
+}
+
+void APlayerBase::Die() 
+{
+    IsDead = true;
+    if (!IsHadReportedDead)
+    {
+        IsHadReportedDead = true;
+        UE_LOG(LogTemp, Warning, TEXT("You died!See you again!"));
+    }
+
+}
