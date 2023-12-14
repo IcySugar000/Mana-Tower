@@ -18,14 +18,14 @@ class MANATOWER_API AFireballProjectile : public APaperCharacter
 	GENERATED_BODY()
 	
 private:
-	float LifeTime;
-	float Damage = 25;
-	APaperCharacter* SourcePlayer;
+	float LifeTime;						//火球生存周期
+	float Damage = 25;					//火球伤害
+	APaperCharacter* SourcePlayer;		//伤害来源（默认为玩家）
 
-	void DetectTarget();
+	void DetectTarget();				//设置火球追踪效果
 
 public:
-	AFireballProjectile();
+	AFireballProjectile();				//构造函数
 	virtual void Tick(float DeltaSeconds) override;
 
 	UFUNCTION()
