@@ -17,13 +17,13 @@ AEnemyBase::AEnemyBase()
     Speed = 1;
     Attack = 10.0;
     Defense = 0;
-    MaxAttackCD = 1;
+    MaxAttackCD = 3;
     AttackCD = 0;
 
     auto capsule = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));
     FScriptDelegate DelegateOverlap;
     DelegateOverlap.BindUFunction(this, "AttackPlayer");
-    capsule->OnComponentBeginOverlap.Add(DelegateOverlap);
+    capsule->OnComponentHit.Add(DelegateOverlap);
 }
 
 void AEnemyBase::BeginPlay()
@@ -53,10 +53,9 @@ float AEnemyBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 {
     float RealDamageAmout = DamageAmount * (1.0 - Defense);//怪物受到的真实伤害
     Health -= RealDamageAmout;
-    if (Health <= 0) {
+    if (Health <= 0 && !IsDead) {
         Health = 0;
-        if (!IsDead)
-            Die();
+        Die();
     }
     UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);//报告收到的伤害
     
@@ -81,23 +80,26 @@ void AEnemyBase::UpdateFlipbook()
     }
 }
 
-void AEnemyBase::Die() {
+void AEnemyBase::Die() 
+{
     IsDead = true;
-    if (!IsHadReportedDead)
-    {
+    if (!IsHadReportedDead){
         IsHadReportedDead = true;
         UE_LOG(LogTemp, Warning, TEXT("AHHHH. I DIED"));
     }
-       
+    Destroy();
 }
 
 void AEnemyBase::MoveToPlayer()
 {
-    auto location = GetActorLocation();
-    auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
-    auto playerLoaction = player->GetActorLocation();
-    auto locationVec = playerLoaction - location;
-    AddMovementInput(locationVec, Speed, false);
+    if (Health > 0)
+    {
+        auto location = GetActorLocation();
+        auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
+        auto playerLoaction = player->GetActorLocation();
+        auto locationVec = playerLoaction - location;
+        AddMovementInput(locationVec, Speed, false);
+    }
 }
 
 void AEnemyBase::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
