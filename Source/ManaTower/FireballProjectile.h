@@ -23,13 +23,11 @@ protected:
 	APaperCharacter* SourcePlayer;		//伤害来源（默认为玩家）
 
 	void DetectTarget();				//设置火球追踪效果
+	void HitTarget();
 
 public:
 	AFireballProjectile();				//构造函数
 	virtual void Tick(float DeltaSeconds) override;
-
-	UFUNCTION()
-	void OnHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	void SetDamage(float newDamage);
 

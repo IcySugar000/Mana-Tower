@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "EnemyBase.h"
+#include "BulletBase.h"
 #include "WoodenMan.generated.h"
 
 /**
@@ -20,8 +21,8 @@ public:
 	virtual void BeginPlay() override;//构造后开始的函数
 	
 	
-	void AttackPlayer();
+	void AttackPlayer(float Attack);
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<APaperCharacter> BulletClass = ABullet::StaticClass();
+	TSubclassOf<APaperCharacter> BulletClass = ABulletBase::StaticClass();
 };

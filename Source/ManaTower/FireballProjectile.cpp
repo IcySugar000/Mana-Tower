@@ -24,34 +24,19 @@ AFireballProjectile::AFireballProjectile()
 	DetectSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Detect Sphere"));
 	DetectSphere->SetSphereRadius(DetectRange);
 	DetectSphere->SetupAttachment(RootComponent);
-
-	auto capsule = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));
-	if (capsule)
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *capsule->GetName());
-	FScriptDelegate DelegateOverlap;
-	DelegateOverlap.BindUFunction(this, "OnHit");
-	capsule->OnComponentBeginOverlap.Add(DelegateOverlap);
 }
 
 void AFireballProjectile::Tick(float DeltaSeconds) {
 	Super::Tick(DeltaSeconds);
-	AddMovementInput(FVector(1, 0, 0), 100, false);
+	// AddMovementInput(FVector(1, 0, 0), 100, false);
 
 	LifeTime -= DeltaSeconds;
 	if(LifeTime <= 0) {
 		Destroy();
 	}
 
+	HitTarget();
 	DetectTarget();
-}
-
-void AFireballProjectile::OnHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) {
-	auto enemy = Cast<AEnemyBase>(OtherActor);
-	if (enemy && SourcePlayer && DamageTypeClass) {
-		UE_LOG(LogTemp, Warning, TEXT("HITTING"));
-		UGameplayStatics::ApplyDamage(enemy, Damage, GetController(), SourcePlayer, DamageTypeClass);
-		Destroy();
-	}
 }
 
 void AFireballProjectile::SetDamage(float newDamage) {
@@ -71,5 +56,18 @@ void AFireballProjectile::DetectTarget() {
 		if(Enemy) {
 			ProjectileComponent->HomingTargetComponent = Enemy->GetComponentByClass<USceneComponent>();
 		}
+	}
+}
+
+void AFireballProjectile::HitTarget()
+{
+	auto capsule = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));
+
+	TArray<AActor*> OverlapActors;
+	capsule->GetOverlappingActors(OverlapActors, AEnemyBase::StaticClass());
+
+	if (!OverlapActors.IsEmpty()) {
+		UGameplayStatics::ApplyDamage(OverlapActors[0], Damage, GetController(), SourcePlayer, DamageTypeClass);
+		Destroy();
 	}
 }
