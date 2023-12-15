@@ -17,7 +17,7 @@ class MANATOWER_API AFireballProjectile : public APaperCharacter
 {
 	GENERATED_BODY()
 	
-private:
+protected:
 	float LifeTime;						//火球生存周期
 	float Damage = 25;					//火球伤害
 	APaperCharacter* SourcePlayer;		//伤害来源（默认为玩家）

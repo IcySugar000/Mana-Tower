@@ -92,14 +92,12 @@ void AEnemyBase::Die()
 
 void AEnemyBase::MoveToPlayer()
 {
-    if (Health > 0)
-    {
-        auto location = GetActorLocation();
-        auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
-        auto playerLoaction = player->GetActorLocation();
-        auto locationVec = playerLoaction - location;
+    auto location = GetActorLocation();
+    auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
+    auto playerLoaction = player->GetActorLocation();
+    auto locationVec = playerLoaction - location;
+    if (locationVec.X * locationVec.X + locationVec.Y * locationVec.Y + locationVec.Z * locationVec.Z > Distance * Distance)
         AddMovementInput(locationVec, Speed, false);
-    }
 }
 
 void AEnemyBase::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

@@ -24,7 +24,7 @@ protected:
 	float Defense;//防御力
 	bool IsHadReportedDead;//是否报告死亡过
 	float AttackCD;//攻击CD
-
+	float Distance;//与玩家的距离
 	void UpdateFlipbook();
 
 public:
