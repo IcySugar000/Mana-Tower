@@ -23,7 +23,6 @@ public:
 	AEnemyRoom();
 
 	virtual void BeginPlay() override;
-	virtual void Tick(float DeltaSeconds) override;
 
 	void SetEnemyTypes(TArray< TSubclassOf<AEnemyBase> > types);
 	void SpawnEnemy();
@@ -32,6 +31,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void OnEnter(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION(BlueprintCallable)
+	void OnEnemyDie(AEnemyBase* Enemy);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 SpawnNum = 3;  // 生成怪物个数，之后可以改成多波

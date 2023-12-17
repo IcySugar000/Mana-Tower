@@ -16,14 +16,6 @@ void AEnemyRoom::BeginPlay() {
 	DetectSphere->OnComponentBeginOverlap.Add(DelegateEnter);
 }
 
-void AEnemyRoom::Tick(float DeltaSeconds) {
-	Super::Tick(DeltaSeconds);
-
-	if(EnemyInRoom.IsEmpty()) {
-		RemoveLock();
-	}
-}
-
 void AEnemyRoom::SetEnemyTypes(TArray<TSubclassOf<AEnemyBase>> types) {
 	EnemyTypes = types;
 }
@@ -47,7 +39,10 @@ void AEnemyRoom::SpawnEnemy() {
 			location.Z += radius * FMath::Sin(radian);
 		
 			newEnemy = GetWorld()->SpawnActor<AEnemyBase>(EnemyTypes[randIndex], location, GetActorRotation());
-			EnemyInRoom.Emplace(newEnemy);
+			if(newEnemy) {
+				newEnemy->EnemyDie.AddUFunction(this, "OnEnemyDie");
+				EnemyInRoom.Emplace(newEnemy);
+			}
 		}
 	}
 }
@@ -83,4 +78,10 @@ void AEnemyRoom::OnEnter(UPrimitiveComponent* OverlappedComponent, AActor* Other
 		SetLock();
 		SpawnEnemy();
 	}
+}
+
+void AEnemyRoom::OnEnemyDie(AEnemyBase* Enemy) {
+	EnemyInRoom.Remove(Enemy);
+	if (EnemyInRoom.IsEmpty()) RemoveLock();
+	UE_LOG(LogTemp, Warning, TEXT("Enemy Removed"));
 }
