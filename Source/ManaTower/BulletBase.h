@@ -16,7 +16,7 @@ class MANATOWER_API ABulletBase : public APaperCharacter
 {
 	GENERATED_BODY()
 
-private:
+protected:
 	float LifeTime;//子弹剩余存在时间
 	float Damage = 25;//子弹造成的伤害
 	APaperCharacter* Source;//伤害造成来源

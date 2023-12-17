@@ -20,8 +20,7 @@ public:
 
 	virtual void BeginPlay() override;//构造后开始的函数
 	
-	
-	void AttackPlayer(float Attack);
+	void AttackPlayer();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<APaperCharacter> BulletClass = ABulletBase::StaticClass();

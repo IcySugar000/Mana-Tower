@@ -2,7 +2,7 @@
 
 
 #include "WoodenMan.h"
-#include "BulletBase.h"
+#include "WoodenManBullet.h"
 
 AWoodenMan::AWoodenMan()
 {
@@ -29,13 +29,13 @@ void AWoodenMan::BeginPlay()
     Health = MaxHealth;//生命初值为最大生命值
 }
 
-void AWoodenMan::AttackPlayer(float Attack)
+void AWoodenMan::AttackPlayer()
 {
     if (AttackCD > 0.0) return;
 
     //UE_LOG(LogTemp, Warning, TEXT("Bullet at Rotation: %d"), Rotation);
 
-    auto myBullet = GetWorld()->SpawnActor<ABulletBase>(BulletClass,
+    auto myBullet = GetWorld()->SpawnActor<AWoodenManBullet>(BulletClass,
         GetOwner()->GetActorLocation(),
         FRotator(0.0, 0.0, 0.0));
     myBullet->SetSource(this);
