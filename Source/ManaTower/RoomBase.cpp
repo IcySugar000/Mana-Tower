@@ -10,7 +10,7 @@ ARoomBase::ARoomBase() {
 
 	// ¥¥Ω®ºÏ≤‚»¶
 	DetectSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Detect Sphere"));
-	DetectSphere->SetSphereRadius((EdgeLength / 2.0f * FMath::Sqrt(3.0) - EdgeWidth) * 0.95);  // ƒ⁄«–‘≤ºÏ≤‚»¶
+	DetectSphere->SetSphereRadius((EdgeLength / 2.0f * FMath::Sqrt(3.0) - EdgeWidth) * 0.9);  // ƒ⁄«–‘≤ºÏ≤‚»¶
 	DetectSphere->SetupAttachment(RootComponent);
 }
 

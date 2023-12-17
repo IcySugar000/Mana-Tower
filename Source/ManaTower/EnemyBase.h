@@ -6,7 +6,10 @@
 #include "PaperCharacter.h"
 #include "PaperFlipbookComponent.h"
 #include "EnemyBaseAttackDamageType.h"
+#include "Runtime/AIModule/Classes/AIController.h"
 #include "EnemyBase.generated.h"
+
+DECLARE_MULTICAST_DELEGATE_OneParam(EnemyDieDelegate, AEnemyBase*);
 
 /**
  *
@@ -53,4 +56,6 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UDamageType> DamageTypeClass = UEnemyBaseAttackDamageType::StaticClass();
+
+	EnemyDieDelegate EnemyDie;
 };

@@ -24,8 +24,6 @@ AEnemyBase::AEnemyBase()
     FScriptDelegate DelegateOverlap;
     DelegateOverlap.BindUFunction(this, "AttackPlayer");
     capsule->OnComponentHit.Add(DelegateOverlap);
-
-    AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
 void AEnemyBase::BeginPlay()
