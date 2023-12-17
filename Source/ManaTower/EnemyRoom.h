@@ -17,12 +17,18 @@ class MANATOWER_API AEnemyRoom : public ARoomBase
 
 private:
 	bool IsHadEntered = false;
+	UPaperGroupedSpriteComponent* LockSprites;
 	
 public:
+	AEnemyRoom();
+
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 
 	void SetEnemyTypes(TArray< TSubclassOf<AEnemyBase> > types);
 	void SpawnEnemy();
+	void SetLock();
+	void RemoveLock();
 
 	UFUNCTION(BlueprintCallable)
 	void OnEnter(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -35,4 +41,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<AEnemyBase*> EnemyInRoom;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperSprite* Lock;
 };
