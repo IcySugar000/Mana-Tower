@@ -61,13 +61,16 @@ void AFireballProjectile::DetectTarget() {
 
 void AFireballProjectile::HitTarget()
 {
-	auto capsule = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));
+	auto capsule = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));	//创建胶囊（即每一个物体周围都会有的范围标志物品）
 
-	TArray<AActor*> OverlapActors;
-	capsule->GetOverlappingActors(OverlapActors, AEnemyBase::StaticClass());
+	TArray<AActor*> OverlapActors;			//数组：用来存放和该伤害有交集的物品
+	capsule->GetOverlappingActors(OverlapActors, AEnemyBase::StaticClass());	//这个有交集的物品集合是EnemyBase（即敌人）
 
+	//如果这个交集存放的数组（敌人）不为空，即打到了敌人
 	if (!OverlapActors.IsEmpty()) {
+		//由于火球是只造成最先碰到的敌人的伤害的，所以OverlapActors[0]表示第一个受到伤害的敌人，给其造成伤害
 		UGameplayStatics::ApplyDamage(OverlapActors[0], Damage, GetController(), SourcePlayer, DamageTypeClass);
 		Destroy();
 	}
+	
 }

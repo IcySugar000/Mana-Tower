@@ -28,11 +28,16 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 	void SetSourcePlayer(APaperCharacter* player);  // 设置源玩家
-	void Attack();
+
+	void Attack();						//攻击、伤害函数
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxLifeTime = 2;				//最大的存在时间
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MaxAttackCD = 0.5;
+	float MaxAttackCD = 0.5;			//火柱的最长技能CD
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+
+	TSubclassOf<UDamageType> DamageTypeClass = UFire_DamageType::StaticClass();	//火柱的伤害
 };
