@@ -31,7 +31,7 @@ protected:
 
 	float Attack;				//攻击力
 	float Defense;				//防御力
-	float MaxHealth;			//最大生命值
+	float MaxHealth = 100;		//最大生命值
 	float Health;				//当前生命值
 	// float Defaultblood;		//受到的伤害
 

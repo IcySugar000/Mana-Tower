@@ -24,6 +24,8 @@ void APlayerBase::BeginPlay()
 {
     Super::BeginPlay();
 
+    Health = MaxHealth;
+
     Controller = UGameplayStatics::GetPlayerController(this->GetWorld(), 0);
 
     Controller->SetShowMouseCursor(true);
