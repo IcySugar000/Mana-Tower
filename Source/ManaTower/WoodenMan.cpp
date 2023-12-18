@@ -46,9 +46,10 @@ void AWoodenMan::AttackPlayer()
     auto myBullet = GetWorld()->SpawnActor<AWoodenManBullet>(BulletClass,
         GetActorLocation(),
         FRotator(0.0, 0.0, 0.0));
-    myBullet->SetSource(this);
-    myBullet->SetDamage(Attack);
-    
+    if (myBullet){
+        myBullet->SetSource(this);
+        myBullet->SetDamage(Attack);
+    }//∑¿÷πbug
     AttackCD = MaxAttackCD;
 }
 
