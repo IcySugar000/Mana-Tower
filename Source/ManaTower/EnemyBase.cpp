@@ -99,10 +99,10 @@ void AEnemyBase::MoveToPlayer()
     auto playerLoaction = player->GetActorLocation();
     auto locationVec = playerLoaction - location;
     if (locationVec.X * locationVec.X + locationVec.Y * locationVec.Y + locationVec.Z * locationVec.Z > Distance * Distance) {
-<<<<<<< Updated upstream
-=======
+
+
        // if (player) UE_LOG(LogTemp, Warning, TEXT("%lf %lf %lf"), locationVec.X, locationVec.Y, locationVec.Z);
->>>>>>> Stashed changes
+
         AddMovementInput(locationVec, Speed, false);
     }
 }
