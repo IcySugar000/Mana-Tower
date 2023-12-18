@@ -62,6 +62,7 @@ void UFlaminaSpellTranslator::JetFlame(int Rotation)
 		GetOwner()->GetActorLocation(),
 		FRotator(-60.0 * Rotation, 0.0, 0.0));
 	//SetSourcePlayer function
-	myJetFlame->SetSourcePlayer(GetTypedOuter<APaperCharacter>());
+	if(myJetFlame)
+		myJetFlame->SetSourcePlayer(GetTypedOuter<APaperCharacter>());
 
 }
