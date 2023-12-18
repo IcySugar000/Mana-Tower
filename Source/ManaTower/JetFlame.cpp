@@ -40,10 +40,10 @@ void AJetFlame::Attack() {
 	//如果这个交集存放的数组（敌人）不为空，即打到了敌人
 	if (!OverlapActors.IsEmpty()) {
 		//由于火柱是造成所在路径上的所有敌人伤害的，所以我们需要遍历这个交集集合的所有元素（所有敌人）
-
-		for (unsigned int role = 0; role < OverlapActors.GetAllocatedSize(); role++) {
-			UGameplayStatics::ApplyDamage(OverlapActors[role], Damage, GetController(), SourcePlayer, DamageTypeClass);
-		}
+		UGameplayStatics::ApplyDamage(OverlapActors[0], Damage, GetController(), SourcePlayer, DamageTypeClass);
+		//for (unsigned int role = 0; role < OverlapActors.GetTypeSize(); role++) {
+		//	UGameplayStatics::ApplyDamage(OverlapActors[role], Damage, GetController(), SourcePlayer, DamageTypeClass);
+		//}
 		
 	}
 	AttackCD = MaxAttackCD;  // 重新设定cd

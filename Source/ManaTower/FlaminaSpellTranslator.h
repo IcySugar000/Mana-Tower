@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "FireballProjectile.h"
+#include "JetFlame.h"
 #include "SpellTranslator.h"
 #include "FlaminaSpellTranslator.generated.h"
 
@@ -19,11 +20,20 @@ public:
 	virtual void CastSpell(FName Name, int Rotation = 0) override;
 
 	UFUNCTION()
-	void Fireball(int Rotation);
+	void Fireball(int Rotation);	//Fireball function
 
 	UFUNCTION()
-	void RestoreMana();
+
+	void JetFlame(int Rotation);	//JetFlame function
+
+	UFUNCTION()
+	void RestoreMana();		//Restore Mana
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<APaperCharacter> FireballClass = AFireballProjectile::StaticClass();
+	TSubclassOf<APaperCharacter> FireballClass = AFireballProjectile::StaticClass();	//FireballClass
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+
+	TSubclassOf<APaperCharacter> JetFlameClass = AJetFlame::StaticClass();		//JetFlameClass
+
 };
