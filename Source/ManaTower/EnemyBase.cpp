@@ -20,10 +20,7 @@ AEnemyBase::AEnemyBase()
     MaxAttackCD = 3;
     AttackCD = 0;
 
-    auto capsule = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));
-    FScriptDelegate DelegateOverlap;
-    DelegateOverlap.BindUFunction(this, "AttackPlayer");
-    capsule->OnComponentHit.Add(DelegateOverlap);
+   
 
     AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
@@ -102,20 +99,13 @@ void AEnemyBase::MoveToPlayer()
     auto playerLoaction = player->GetActorLocation();
     auto locationVec = playerLoaction - location;
     if (locationVec.X * locationVec.X + locationVec.Y * locationVec.Y + locationVec.Z * locationVec.Z > Distance * Distance) {
+<<<<<<< Updated upstream
+=======
+       // if (player) UE_LOG(LogTemp, Warning, TEXT("%lf %lf %lf"), locationVec.X, locationVec.Y, locationVec.Z);
+>>>>>>> Stashed changes
         AddMovementInput(locationVec, Speed, false);
     }
 }
 
-void AEnemyBase::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-    if (AttackCD > 0.0) return;
 
-    if (!Cast<APlayerBase>(OtherActor)) return;
-    
-    auto enemy = Cast<APlayerBase>(OtherActor);
-    float Damage = Attack;
-    UGameplayStatics::ApplyDamage(enemy, Damage, GetController(), this, DamageTypeClass);
-    UE_LOG(LogTemp, Warning, TEXT("HAHA, I ATTACK YOU!!!"));
-    AttackCD = MaxAttackCD;
-}
 
