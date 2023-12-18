@@ -82,6 +82,8 @@ void APlayerBase::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
     UpdateFlipbook();
+
+    UE_LOG(LogTemp, Warning, TEXT("%lf"), Mana);
 }
 
 void APlayerBase::CastSpell(TArray<uint8> ExistLines) {
