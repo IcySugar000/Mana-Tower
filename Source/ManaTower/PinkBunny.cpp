@@ -2,6 +2,9 @@
 
 
 #include "PinkBunny.h"
+#include "PlayerBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/CapsuleComponent.h"
 
 APinkBunny::APinkBunny()
 {
@@ -15,6 +18,11 @@ APinkBunny::APinkBunny()
     Speed = 1;
     Defense = 0.038;//基本数值设定
     //小彩蛋 
+
+    auto capsule = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));
+    FScriptDelegate DelegateOverlap;
+    DelegateOverlap.BindUFunction(this, "AttackPlayer");
+    capsule->OnComponentHit.Add(DelegateOverlap);
 }
 
 void APinkBunny::BeginPlay()
@@ -25,4 +33,17 @@ void APinkBunny::BeginPlay()
         MaxHealth = 100;//如果最大生命值出现设置错误，那么就改成80
 
     Health = MaxHealth;//生命初值为最大生命值
+}
+
+void APinkBunny::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    if (AttackCD > 0.0) return;
+
+    if (!Cast<APlayerBase>(OtherActor)) return;
+
+    auto enemy = Cast<APlayerBase>(OtherActor);
+    float Damage = Attack;
+    UGameplayStatics::ApplyDamage(enemy, Damage, GetController(), this, DamageTypeClass);
+    UE_LOG(LogTemp, Warning, TEXT("HAHA, I ATTACK YOU!!!"));
+    AttackCD = MaxAttackCD;
 }

@@ -39,11 +39,7 @@ public:
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;//获取伤害
 
 	void Die();//死亡
-
 	void MoveToPlayer();//移动向玩家
-
-	UFUNCTION()
-	void AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)//这行是使得下面定义的一行变量被Unreal看到
 	float MaxHealth;//对基类的MaxHealth赋初值，防止错误

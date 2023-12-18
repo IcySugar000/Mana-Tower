@@ -19,7 +19,10 @@ public:
 	AWoodenMan();//构造树人怪
 
 	virtual void BeginPlay() override;//构造后开始的函数
+	virtual void Tick(float deltaSeconds) override;
 	
+	void MoveToPlayer();//移动向玩家
+
 	void AttackPlayer();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

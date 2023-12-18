@@ -3,6 +3,9 @@
 
 #include "WoodenMan.h"
 #include "WoodenManBullet.h"
+#include "PlayerBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/CapsuleComponent.h"
 
 AWoodenMan::AWoodenMan()
 {
@@ -14,9 +17,9 @@ AWoodenMan::AWoodenMan()
     MaxHealth = 80;
     Attack = 12;
     Speed = 0.8;
-    Distance = 300;
+    Distance = 400;
     Defense = 0.02;//基本数值设定
-   
+    AttackCD = MaxAttackCD;
 }
 
 void AWoodenMan::BeginPlay()
@@ -29,14 +32,19 @@ void AWoodenMan::BeginPlay()
     Health = MaxHealth;//生命初值为最大生命值
 }
 
+void AWoodenMan::Tick(float deltaSeconds)
+{
+    Super::Tick(deltaSeconds);
+
+    AttackPlayer();
+}
+
 void AWoodenMan::AttackPlayer()
 {
     if (AttackCD > 0.0) return;
 
-    //UE_LOG(LogTemp, Warning, TEXT("Bullet at Rotation: %d"), Rotation);
-
     auto myBullet = GetWorld()->SpawnActor<AWoodenManBullet>(BulletClass,
-        GetOwner()->GetActorLocation(),
+        GetActorLocation(),
         FRotator(0.0, 0.0, 0.0));
     myBullet->SetSource(this);
     myBullet->SetDamage(Attack);
@@ -44,3 +52,16 @@ void AWoodenMan::AttackPlayer()
     AttackCD = MaxAttackCD;
 }
 
+void AWoodenMan::MoveToPlayer()
+{
+    // AttackPlayer();
+    auto location = GetActorLocation();
+    auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
+    auto playerLoaction = player->GetActorLocation();
+    auto locationVec = playerLoaction - location;
+    if (locationVec.X * locationVec.X + locationVec.Y * locationVec.Y + locationVec.Z * locationVec.Z > Distance * Distance) {
+        // if (player) UE_LOG(LogTemp, Warning, TEXT("%lf %lf %lf"), locationVec.X, locationVec.Y, locationVec.Z);
+        AddMovementInput(locationVec, Speed, false);
+    }
+    
+}
