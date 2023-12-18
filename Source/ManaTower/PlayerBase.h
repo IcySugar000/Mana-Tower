@@ -89,6 +89,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void LoseMana(float amount);
 
+	UFUNCTION(BlueprintCallable)
+	void RestoreMana(float amount);
+
 	APlayerBase();
 
 };

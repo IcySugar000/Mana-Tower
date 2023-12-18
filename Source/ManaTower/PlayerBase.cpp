@@ -78,6 +78,11 @@ void APlayerBase::LoseMana(float amount) {
     if (Mana < 0) Mana = 0;
 }
 
+void APlayerBase::RestoreMana(float amount) {
+    Mana += amount;
+    if (Mana > MaxMana) Mana = MaxMana;
+}
+
 void APlayerBase::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
