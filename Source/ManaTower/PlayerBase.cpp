@@ -25,6 +25,7 @@ void APlayerBase::BeginPlay()
     Super::BeginPlay();
 
     Health = MaxHealth;
+    Mana = MaxMana;
 
     Controller = UGameplayStatics::GetPlayerController(this->GetWorld(), 0);
 
@@ -66,10 +67,22 @@ float APlayerBase::GetMana()
 {
     return Mana;
 }
+
 float APlayerBase::GetMaxMana() 
 {
     return MaxMana;
 }
+
+void APlayerBase::LoseMana(float amount) {
+    Mana -= amount;
+    if (Mana < 0) Mana = 0;
+}
+
+void APlayerBase::RestoreMana(float amount) {
+    Mana += amount;
+    if (Mana > MaxMana) Mana = MaxMana;
+}
+
 void APlayerBase::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);

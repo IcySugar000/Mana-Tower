@@ -3,6 +3,9 @@
 
 #include "SpellTranslator.h"
 
+#include "PlayerBase.h"
+
+class APlayerBase;
 // Sets default values for this component's properties
 USpellTranslator::USpellTranslator()
 {
@@ -75,8 +78,12 @@ void USpellTranslator::Translate(TArray<uint8> InputActivator) {
 					TArray<uint8> tempSpell;
 					for (uint8 digit : spell.Activator) tempSpell.Emplace((digit + i) % ButtonNum);
 					if (tempSpell == InputActivator) {
-						CastSpell(spell.Name, i);
-						UE_LOG(LogTemp, Warning, TEXT("%s"), *spell.Name.ToString());
+						// ¼ì²âÄ§Á¦ÊÇ·ñ×ã¹»
+						if(Cast<APlayerBase>(GetOwner())->GetMana() >= spell.RequiredMana) {
+							Cast<APlayerBase>(GetOwner())->LoseMana(spell.RequiredMana);
+							CastSpell(spell.Name, i);
+							UE_LOG(LogTemp, Warning, TEXT("%s"), *spell.Name.ToString());
+						}
 					}
 				}
 			}
@@ -84,8 +91,12 @@ void USpellTranslator::Translate(TArray<uint8> InputActivator) {
 		else {
 			for (auto s : allActivators) {
 				if (s == InputActivator) {
-					CastSpell(spell.Name);
-					UE_LOG(LogTemp, Warning, TEXT("%s"), *spell.Name.ToString());
+					// ¼ì²âÄ§Á¦ÊÇ·ñ×ã¹»
+					if (Cast<APlayerBase>(GetOwner())->GetMana() >= spell.RequiredMana) {
+						Cast<APlayerBase>(GetOwner())->LoseMana(spell.RequiredMana);
+						CastSpell(spell.Name);
+						UE_LOG(LogTemp, Warning, TEXT("%s"), *spell.Name.ToString());
+					}
 				}
 			}
 		}

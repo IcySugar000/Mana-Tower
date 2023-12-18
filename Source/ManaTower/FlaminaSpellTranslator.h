@@ -21,6 +21,9 @@ public:
 	UFUNCTION()
 	void Fireball(int Rotation);
 
+	UFUNCTION()
+	void RestoreMana();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<APaperCharacter> FireballClass = AFireballProjectile::StaticClass();
 };

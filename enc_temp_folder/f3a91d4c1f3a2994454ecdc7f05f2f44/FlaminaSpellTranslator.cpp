@@ -10,6 +10,8 @@ class APlayerBase;
 void UFlaminaSpellTranslator::CastSpell(FName Name, int Rotation) {
 	Super::CastSpell(Name, Rotation);
 
+	UE_LOG(LogTemp, Warning, TEXT("CASTING: %s"), *Name.ToString());
+
 	if (Name == "Fireball") {
 		Fireball(Rotation);
 	}
@@ -28,8 +30,10 @@ void UFlaminaSpellTranslator::Fireball(int Rotation) {
 }
 
 void UFlaminaSpellTranslator::RestoreMana() {
+	UE_LOG(LogTemp, Warning, TEXT("Restoring Mana"));
 	auto player = Cast<APlayerBase>(GetOwner());
 	if (player) {
 		player->RestoreMana(10);
+		UE_LOG(LogTemp, Warning, TEXT("Restoring Mana2"));
 	}
 }

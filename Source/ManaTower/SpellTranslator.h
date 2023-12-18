@@ -25,6 +25,9 @@ struct FMagicSpell {
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool CanStartAtAny = false;  // 是否可以从任何点开始绘制
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float RequiredMana = 0;
 };
 
 

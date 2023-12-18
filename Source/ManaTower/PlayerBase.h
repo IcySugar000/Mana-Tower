@@ -37,7 +37,7 @@ protected:
 
 	bool IsDead;                //判断死亡
 	bool IsHadReportedDead;		//是否报告死亡过
-	float MaxMana;				//最大魔法值
+	float MaxMana = 100;		//最大魔法值
 	float Mana;					//当前魔法值
 	// float CostMana;				//消耗的魔法值
 	
@@ -85,6 +85,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	float GetMana();				//获得当前魔法值的函数
+
+	UFUNCTION(BlueprintCallable)
+	void LoseMana(float amount);
+
+	UFUNCTION(BlueprintCallable)
+	void RestoreMana(float amount);
 
 	APlayerBase();
 
