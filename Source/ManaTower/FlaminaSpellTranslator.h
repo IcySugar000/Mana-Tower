@@ -23,17 +23,21 @@ public:
 	void Fireball(int Rotation);	//Fireball function
 
 	UFUNCTION()
-
 	void JetFlame(int Rotation);	//JetFlame function
 
 	UFUNCTION()
 	void RestoreMana();		//Restore Mana
 
+	UFUNCTION()
+	void BigFireball(int Rotation);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<APaperCharacter> FireballClass = AFireballProjectile::StaticClass();	//FireballClass
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-
 	TSubclassOf<APaperCharacter> JetFlameClass = AJetFlame::StaticClass();		//JetFlameClass
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<APaperCharacter> BigFireballClass = AFireballProjectile::StaticClass();
 
 };
