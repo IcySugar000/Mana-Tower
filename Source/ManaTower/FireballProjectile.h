@@ -19,7 +19,6 @@ class MANATOWER_API AFireballProjectile : public APaperCharacter
 	
 protected:
 	float LifeTime;						//火球生存周期
-	float Damage = 25;					//火球伤害
 	APaperCharacter* SourcePlayer;		//伤害来源（默认为玩家）
 
 	void DetectTarget();				//设置火球追踪效果
@@ -32,6 +31,9 @@ public:
 	void SetDamage(float newDamage);
 
 	void SetSourcePlayer(APaperCharacter* player);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Damage = 25;					//火球伤害
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UProjectileMovementComponent> ProjectileComponent;

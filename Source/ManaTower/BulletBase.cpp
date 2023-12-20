@@ -65,6 +65,10 @@ void ABulletBase::OnHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherA
 		}
 	}
 
+	// 不能转换为玩家或者敌人，说明打到障碍物上了，直接摧毁
+	if(!(Cast<APlayerBase>(OtherActor)|| Cast<AEnemyBase>(OtherActor))) {
+		Destroy();
+	}
 }
 
 void ABulletBase::SetDamage(float newDamage)

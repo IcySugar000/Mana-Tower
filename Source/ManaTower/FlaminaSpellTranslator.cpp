@@ -23,6 +23,10 @@ void UFlaminaSpellTranslator::CastSpell(FName Name, int Rotation) {
 	{
 		JetFlame(Rotation);				//invoking JetFlame(Rotation) Function
 	}
+	else if (Name == "Big Fireball") 
+	{
+		BigFireball(Rotation);
+	}
 }
 
 void UFlaminaSpellTranslator::Fireball(int Rotation) 
@@ -49,6 +53,18 @@ void UFlaminaSpellTranslator::RestoreMana()
 	if (player) {
 		player->RestoreMana(10);
 	}
+}
+
+void UFlaminaSpellTranslator::BigFireball(int Rotation)
+{
+	//Cast PlayerBase
+	auto player = Cast<APlayerBase>(GetOwner());
+	//Rotation direction
+	auto myFireball = GetWorld()->SpawnActor<AFireballProjectile>(BigFireballClass,
+		GetOwner()->GetActorLocation(),
+		FRotator(-60.0 * Rotation, 0.0, 0.0));
+	//SetSourcePlayer function
+	myFireball->SetSourcePlayer(GetTypedOuter<APaperCharacter>());
 }
 
 void UFlaminaSpellTranslator::JetFlame(int Rotation) 
