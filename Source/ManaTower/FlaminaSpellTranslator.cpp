@@ -27,6 +27,10 @@ void UFlaminaSpellTranslator::CastSpell(FName Name, int Rotation) {
 	{
 		BigFireball(Rotation);
 	}
+	else if (Name == "Canister") 
+	{
+		Canister(Rotation);
+	}
 }
 
 void UFlaminaSpellTranslator::Fireball(int Rotation) 
@@ -65,6 +69,21 @@ void UFlaminaSpellTranslator::BigFireball(int Rotation)
 		FRotator(-60.0 * Rotation, 0.0, 0.0));
 	//SetSourcePlayer function
 	myFireball->SetSourcePlayer(GetTypedOuter<APaperCharacter>());
+}
+
+void UFlaminaSpellTranslator::Canister(int Rotation)
+{
+	//Cast PlayerBase
+	auto player = Cast<APlayerBase>(GetOwner());
+	//Rotation direction
+	for(int i=0; i<10; ++i) {
+		auto myFireball = GetWorld()->SpawnActor<AFireballProjectile>(SmallFireballClass,
+			GetOwner()->GetActorLocation(),
+			FRotator(-60.0 * Rotation + FMath::RandRange(-30.0, 30.0), 0.0, 0.0));
+		//SetSourcePlayer function
+		if (myFireball) myFireball->SetSourcePlayer(player);
+		else UE_LOG(LogTemp, Warning, TEXT("NO fireball"));
+	}
 }
 
 void UFlaminaSpellTranslator::JetFlame(int Rotation) 
