@@ -83,6 +83,7 @@ void USpellTranslator::Translate(TArray<uint8> InputActivator) {
 							Cast<APlayerBase>(GetOwner())->LoseMana(spell.RequiredMana);
 							CastSpell(spell.Name, i);
 							UE_LOG(LogTemp, Warning, TEXT("%s"), *spell.Name.ToString());
+							return;
 						}
 					}
 				}
@@ -96,6 +97,7 @@ void USpellTranslator::Translate(TArray<uint8> InputActivator) {
 						Cast<APlayerBase>(GetOwner())->LoseMana(spell.RequiredMana);
 						CastSpell(spell.Name);
 						UE_LOG(LogTemp, Warning, TEXT("%s"), *spell.Name.ToString());
+						return;
 					}
 				}
 			}
