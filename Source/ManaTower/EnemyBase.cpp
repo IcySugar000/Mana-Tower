@@ -19,9 +19,7 @@ AEnemyBase::AEnemyBase()
     Defense = 0;
     MaxAttackCD = 3;
     AttackCD = 0;
-
    
-
     AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
@@ -33,18 +31,18 @@ void AEnemyBase::BeginPlay()
 }
 
 void AEnemyBase::Tick(float DeltaSeconds) {
-	Super::Tick(DeltaSeconds);
+	
+    Super::Tick(DeltaSeconds);
 
 	UpdateFlipbook();
-
-    MoveToPlayer();
 
 	if (Health <= 0) {
 		Die();
 	}
 
-    if (AttackCD > 0.0) 
+    if (AttackCD > 0.0)
         AttackCD -= DeltaSeconds;
+        
 
 }
 
@@ -94,18 +92,16 @@ void AEnemyBase::Die()
 
 void AEnemyBase::MoveToPlayer()
 {
+    // AttackPlayer();
     auto location = GetActorLocation();
     auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
     auto playerLoaction = player->GetActorLocation();
     auto locationVec = playerLoaction - location;
     if (locationVec.X * locationVec.X + locationVec.Y * locationVec.Y + locationVec.Z * locationVec.Z > Distance * Distance) {
-
-
-       // if (player) UE_LOG(LogTemp, Warning, TEXT("%lf %lf %lf"), locationVec.X, locationVec.Y, locationVec.Z);
-
+        // if (player) UE_LOG(LogTemp, Warning, TEXT("%lf %lf %lf"), locationVec.X, locationVec.Y, locationVec.Z);
         AddMovementInput(locationVec, Speed, false);
     }
-}
 
+}
 
 
