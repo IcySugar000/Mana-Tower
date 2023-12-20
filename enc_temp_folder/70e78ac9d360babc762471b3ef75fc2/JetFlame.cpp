@@ -3,8 +3,9 @@
 
 #include "JetFlame.h"
 #include "EnemyBase.h"
-#include "Components/BoxComponent.h"
+#include "PlayerBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/CapsuleComponent.h"
 
 AJetFlame::AJetFlame()					//火柱的生成
 {
@@ -33,10 +34,10 @@ void AJetFlame::Attack() {
 	// TODO
 	// 检测所有Overlap
 	// 遍历Overlap，类型转换，给伤害
-	auto box = Cast<UBoxComponent>(GetComponentByClass(UBoxComponent::StaticClass()));	//创建胶囊（即每一个物体周围都会有的范围标志物品）
+	auto capsule = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));	//创建胶囊（即每一个物体周围都会有的范围标志物品）
 
 	TArray<AActor*> OverlapActors;			//数组：用来存放和该伤害有交集的物品
-	box->GetOverlappingActors(OverlapActors, AEnemyBase::StaticClass());	//这个有交集的物品集合是EnemyBase（即敌人）
+	capsule->GetOverlappingActors(OverlapActors, AEnemyBase::StaticClass());	//这个有交集的物品集合是EnemyBase（即敌人）
 
 	//如果这个交集存放的数组（敌人）不为空，即打到了敌人
 	if (!OverlapActors.IsEmpty()) {
