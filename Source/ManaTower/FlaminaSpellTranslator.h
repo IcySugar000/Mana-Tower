@@ -31,6 +31,9 @@ public:
 	UFUNCTION()
 	void BigFireball(int Rotation);
 
+	UFUNCTION()
+	void Canister(int Rotation);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<APaperCharacter> FireballClass = AFireballProjectile::StaticClass();	//FireballClass
 
@@ -40,4 +43,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<APaperCharacter> BigFireballClass = AFireballProjectile::StaticClass();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<APaperCharacter> SmallFireballClass = AFireballProjectile::StaticClass();
 };
