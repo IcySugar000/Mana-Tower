@@ -19,8 +19,10 @@ void AJetFlame::Tick(float DeltaSeconds) {
 	LifeTime -= DeltaSeconds;
 	if (LifeTime <= 0) Destroy();
 
-	if (AttackCD > 0) AttackCD = AttackCD > DeltaSeconds ? AttackCD - DeltaSeconds : 0.0;  // 攻击冷却计算，最小为0
-	if (AttackCD <= 0) Attack();  // 冷却到了就攻击
+	if (AttackCD > 0) 
+		AttackCD = AttackCD > DeltaSeconds ? AttackCD - DeltaSeconds : 0.0;  // 攻击冷却计算，最小为0
+	if (AttackCD <= 0) 
+		Attack();  // 冷却到了就攻击
 }
 
 void AJetFlame::SetSourcePlayer(APaperCharacter* player) {
