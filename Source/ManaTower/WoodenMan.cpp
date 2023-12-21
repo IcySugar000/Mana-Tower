@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include <ctime>
+#include <random>
 #include "WoodenMan.h"
 #include "WoodenManBullet.h"
 #include "PlayerBase.h"
@@ -19,7 +20,9 @@ AWoodenMan::AWoodenMan()
     Speed = 0.8;
     Distance = 400;
     Defense = 0.02;//基本数值设定
-    AttackCD = MaxAttackCD;
+    std::uniform_real_distribution<float> u(0.5, 1.5);
+    std::default_random_engine e(time(NULL));
+    AttackCD = u(e) * MaxAttackCD;
 }
 
 void AWoodenMan::BeginPlay()
@@ -36,6 +39,7 @@ void AWoodenMan::Tick(float deltaSeconds)
 {
     Super::Tick(deltaSeconds);
 
+    MoveToPlayer();
     AttackPlayer();
 }
 
@@ -53,16 +57,3 @@ void AWoodenMan::AttackPlayer()
     AttackCD = MaxAttackCD;
 }
 
-void AWoodenMan::MoveToPlayer()
-{
-    // AttackPlayer();
-    auto location = GetActorLocation();
-    auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
-    auto playerLoaction = player->GetActorLocation();
-    auto locationVec = playerLoaction - location;
-    if (locationVec.X * locationVec.X + locationVec.Y * locationVec.Y + locationVec.Z * locationVec.Z > Distance * Distance) {
-        // if (player) UE_LOG(LogTemp, Warning, TEXT("%lf %lf %lf"), locationVec.X, locationVec.Y, locationVec.Z);
-        AddMovementInput(locationVec, Speed, false);
-    }
-    
-}

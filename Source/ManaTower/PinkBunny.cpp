@@ -47,3 +47,10 @@ void APinkBunny::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* 
     UE_LOG(LogTemp, Warning, TEXT("HAHA, I ATTACK YOU!!!"));
     AttackCD = MaxAttackCD;
 }
+
+void APinkBunny::Tick(float deltaSeconds)
+{
+    Super::Tick(deltaSeconds);
+
+    MoveToPlayer();
+}
