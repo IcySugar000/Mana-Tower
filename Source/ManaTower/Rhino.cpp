@@ -15,7 +15,7 @@ ARhino::ARhino()
     IsHadReportedDead = false;//活着的怪物
     MaxHealth = 80;
     Attack = 20;
-    Speed = 2;
+    Speed = 1200;
     Defense = 0.3;//基本数值设定
     RushTime = MaxRushTime;
 
@@ -46,6 +46,7 @@ void ARhino::Tick(float deltaSeconds)
     Super::Tick(deltaSeconds);
     
     if (AttackCD <= 0 && RushTime>0) {//CD为0，且RushTime不为0，保持冲刺状态
+        Direction.Normalize();
         AddMovementInput(Direction, Speed, false);
         RushTime -= deltaSeconds;
     }
@@ -85,5 +86,6 @@ void ARhino::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* Othe
         UE_LOG(LogTemp, Warning, TEXT("HAHA, I ATTACK YOU!!!"));
         AttackCD = MaxAttackCD;
     }
+
     RushTime = MaxRushTime;
 }

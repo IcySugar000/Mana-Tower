@@ -22,7 +22,7 @@ public:
 	virtual void Tick(float deltaSeconds) override;
 	
 	void AttackPlayer();
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<APaperCharacter> BulletClass = ABulletBase::StaticClass();
 };

@@ -12,7 +12,7 @@ void AWoodenManBullet::BeginPlay()
 	Super::BeginPlay();
 
 	MaxLifeTime = 3;
-	Speed = 400;
+	Speed = 960;
 	LifeTime = MaxLifeTime;
 	ProjectileComponent->InitialSpeed = Speed;
 	ProjectileComponent->MaxSpeed = Speed;
@@ -22,5 +22,6 @@ void AWoodenManBullet::BeginPlay()
 	auto player2 = player->GetPawn();
 	auto playerLoaction = player2->GetActorLocation();
 	auto locationVec = playerLoaction - location;
-	ProjectileComponent->Velocity = locationVec;
+	locationVec.Normalize();
+	ProjectileComponent->Velocity = locationVec * Speed;
 }

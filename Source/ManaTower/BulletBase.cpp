@@ -34,7 +34,8 @@ void ABulletBase::BeginPlay()
 	auto player2 = player->GetPawn();
 	auto playerLoaction = player2->GetActorLocation();
 	auto locationVec = playerLoaction - location;
-	ProjectileComponent->Velocity = locationVec;
+	locationVec.Normalize();
+	ProjectileComponent->Velocity = locationVec * Speed;
 }
 
 void ABulletBase::Tick(float DeltaSeconds)
