@@ -41,7 +41,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	TTuple<int32, int32, int32> GetEndRoomPosition();  // 获取终点坐标
 
-	void SetWorldSize(int WorldSize);
+	void SetWorldSize(int32 WorldSize);
 	void Generate();
 	TArray< TPair<FMazeNode, FMazeNode> > GetResult();
 

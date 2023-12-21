@@ -13,14 +13,14 @@ ALevelMap::ALevelMap()
 
 	MazeGenerator = CreateDefaultSubobject<UMazeGeneratorComponent>(TEXT("Maze Generator"));
 	MazeGenerator->SetWorldSize(Size);
-	MazeGenerator->Generate();
-
 }
 
 // Called when the game starts or when spawned
 void ALevelMap::BeginPlay()
 {
 	Super::BeginPlay();
+
+	MazeGenerator->Generate();
 
 	TArray < TArray<int> > doors;
 	for (int i = 0; i < Size * Size; ++i) doors.Emplace(TArray<int>());
@@ -75,7 +75,11 @@ void ALevelMap::BeginPlay()
 		newRoom->SetEdge(doors[i]);
 
 		// 一些后续的生成
-		if(type == "Enemy") {
+		if(type == "End") {
+			auto endRoom = Cast<AEndRoom>(newRoom);
+			endRoom->SetNextLevel(NextLevel);
+		}
+		else if(type == "Enemy") {
 			auto enemyRoom = Cast<AEnemyRoom>(newRoom);
 			enemyRoom->SetEnemyTypes(EnemyTypes);
 		}

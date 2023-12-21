@@ -3,3 +3,12 @@
 
 #include "EndRoom.h"
 
+FString AEndRoom::GetNextLevel()
+{
+	return NextLevel;
+}
+
+void AEndRoom::SetNextLevel(FString nextLevel)
+{
+	NextLevel = nextLevel;
+}

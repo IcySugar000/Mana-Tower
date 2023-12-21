@@ -13,5 +13,13 @@ UCLASS()
 class MANATOWER_API AEndRoom : public ARoomBase
 {
 	GENERATED_BODY()
-	
+
+private:
+	FString NextLevel;
+
+public:
+	UFUNCTION(BlueprintCallable)
+	FString GetNextLevel();
+
+	void SetNextLevel(FString nextLevel);
 };

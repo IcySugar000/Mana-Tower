@@ -3,6 +3,7 @@
 
 #include "MazeGeneratorComponent.h"
 
+#include "LevelMap.h"
 #include "Chaos/ChaosPerfTest.h"
 
 // Sets default values for this component's properties
@@ -112,13 +113,15 @@ TTuple<int32, int32, int32> UMazeGeneratorComponent::GetEndRoomPosition() {
 	return result;
 }
 
-void UMazeGeneratorComponent::SetWorldSize(int WorldSize)
+void UMazeGeneratorComponent::SetWorldSize(int32 WorldSize)
 {
 	Size = WorldSize;
 }
 
 void UMazeGeneratorComponent::Generate()
 {
+	Size = Cast<ALevelMap>(GetOuter())->Size;
+
 	Paths.Empty();
 	IsVisited.Empty();
 	AvailablePaths.Empty();

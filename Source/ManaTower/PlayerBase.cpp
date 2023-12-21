@@ -83,6 +83,25 @@ void APlayerBase::RestoreMana(float amount) {
     if (Mana > MaxMana) Mana = MaxMana;
 }
 
+int32 APlayerBase::GetCoin()
+{
+    return Coin;
+}
+
+void APlayerBase::AddCoin(int32 num)
+{
+    Coin += num;
+}
+
+bool APlayerBase::RemoveCoin(int32 num)
+{
+    if(Coin >= num) {
+        Coin -= num;
+        return true;
+    }
+    return false;
+}
+
 void APlayerBase::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);

@@ -39,7 +39,8 @@ protected:
 	bool IsHadReportedDead;		//是否报告死亡过
 	float MaxMana = 100;		//最大魔法值
 	float Mana;					//当前魔法值
-	// float CostMana;				//消耗的魔法值
+
+	int32 Coin = 0;               //所持有的金币数
 	
 public:
 	virtual void Tick(float DeltaSeconds) override;
@@ -87,10 +88,19 @@ public:
 	float GetMana();				//获得当前魔法值的函数
 
 	UFUNCTION(BlueprintCallable)
-	void LoseMana(float amount);
+	void LoseMana(float amount);    //失去法力值
 
 	UFUNCTION(BlueprintCallable)
-	void RestoreMana(float amount);
+	void RestoreMana(float amount); //恢复法力值
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetCoin();                //获取钱币数量
+
+	UFUNCTION(BlueprintCallable)
+	void AddCoin(int32 num);        //增加钱币数量 
+
+	UFUNCTION(BlueprintCallable)
+	bool RemoveCoin(int32 num);     //减少钱币数量
 
 	APlayerBase();
 

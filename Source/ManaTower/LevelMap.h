@@ -36,6 +36,9 @@ public:
 	int32 Size = 3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString NextLevel;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UMazeGeneratorComponent> MazeGenerator;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

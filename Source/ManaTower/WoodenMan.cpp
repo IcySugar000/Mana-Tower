@@ -1,7 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include <time.h>
-#include <random>
 #include "WoodenMan.h"
 #include "WoodenManBullet.h"
 #include "PlayerBase.h"
