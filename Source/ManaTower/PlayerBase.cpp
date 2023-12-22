@@ -34,11 +34,14 @@ void APlayerBase::BeginPlay()
     MyMagicCircle = CreateWidget<UUserWidget>(Controller, MagicCircleClass);
     if (MyMagicCircle) MyMagicCircle->AddToViewport();                      //魔法阵Widget的显示AddToViewport
 
-    MyHealthbar= CreateWidget<UUserWidget>(Controller, HealthBarClass);  //血条Widget的显示AddToViewport
-    if (MyHealthbar) MyHealthbar->AddToViewport();
-    
-    MyManabar = CreateWidget<UUserWidget>(Controller, ManaBarClass);  //蓝条Widget的显示AddToViewport
-    if (MyManabar) MyManabar->AddToViewport();
+    // MyHealthbar= CreateWidget<UUserWidget>(Controller, HealthBarClass);  //血条Widget的显示AddToViewport
+    // if (MyHealthbar) MyHealthbar->AddToViewport();
+    //
+    // MyManabar = CreateWidget<UUserWidget>(Controller, ManaBarClass);  //蓝条Widget的显示AddToViewport
+    // if (MyManabar) MyManabar->AddToViewport();
+
+    MyMainUI = CreateWidget<UUserWidget>(Controller, MainUIClass);
+    if (MyMainUI) MyMainUI->AddToViewport();
 
     auto tempCircle = Cast<UMagicCircle>(MyMagicCircle);
     Translator->SetButtonNum(tempCircle->ButtonMap.Num());

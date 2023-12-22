@@ -20,6 +20,7 @@ class MANATOWER_API APlayerBase : public APaperCharacter
 
 protected:
 	APlayerController* Controller;
+	UUserWidget* MyMainUI;
 
 	virtual void BeginPlay() override;			//开始游戏
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
@@ -64,6 +65,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UUserWidget> MagicCircleClass;				//MagicCircleClass的声明
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+
+	TSubclassOf<UUserWidget> MainUIClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UUserWidget> HealthBarClass;				//HealthBarClass的声明
