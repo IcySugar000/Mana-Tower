@@ -42,7 +42,7 @@ protected:
 	float Mana;					//当前魔法值
 
 	int32 Coin = 0;               //所持有的金币数
-	
+
 public:
 	virtual void Tick(float DeltaSeconds) override;
 

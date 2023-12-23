@@ -56,22 +56,22 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
     InputComponent->BindAxis(TEXT("Move_Up"), this, &APlayerBase::MoveUp);
 }
 
-float APlayerBase::GetHealth() 
+float APlayerBase::GetHealth()
 {
     return Health;
 }
 
-float APlayerBase::GetMaxHealth() 
+float APlayerBase::GetMaxHealth()
 {
     return MaxHealth;
 }
 
-float APlayerBase::GetMana() 
+float APlayerBase::GetMana()
 {
     return Mana;
 }
 
-float APlayerBase::GetMaxMana() 
+float APlayerBase::GetMaxMana()
 {
     return MaxMana;
 }
@@ -98,7 +98,7 @@ void APlayerBase::AddCoin(int32 num)
 
 bool APlayerBase::RemoveCoin(int32 num)
 {
-    if(Coin >= num) {
+    if (Coin >= num) {
         Coin -= num;
         return true;
     }
@@ -123,7 +123,7 @@ void APlayerBase::CastSpell(TArray<uint8> ExistLines) {
 void APlayerBase::MoveRight(float ScaleValue)       //负数表示向左移动
 {
     AddMovementInput(FVector(1, 0, 0), ScaleValue, false);
-    if(ScaleValue < 0.0) {
+    if (ScaleValue < 0.0) {
         Controller->SetControlRotation(FRotator(0, 180, 0));
     }
     else {
@@ -159,7 +159,7 @@ float APlayerBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEven
     float RealDamageAmout = DamageAmount * (1.0 - Defense);//玩家所受到的真实伤害
     Health -= RealDamageAmout;
     UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);//报告所受到的伤害
-    if (Health <= 0 && !IsDead) 
+    if (Health <= 0 && !IsDead)
     {
         Health = 0;
         Die();
@@ -167,7 +167,7 @@ float APlayerBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEven
     return 0.0f;
 }
 
-void APlayerBase::Die() 
+void APlayerBase::Die()
 {
     IsDead = true;
     if (!IsHadReportedDead)
