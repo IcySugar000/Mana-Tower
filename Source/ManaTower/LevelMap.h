@@ -7,6 +7,7 @@
 #include "EnemyRoom.h"
 #include "MazeGeneratorComponent.h"
 #include "RoomBase.h"
+#include "StoreRoom.h"
 #include "GameFramework/Actor.h"
 #include "LevelMap.generated.h"
 
@@ -49,6 +50,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<ARoomBase> EnemyRoom = AEnemyRoom::StaticClass();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<ARoomBase> StoreRoom = AStoreRoom::StaticClass();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsAllowStore = true;  // 是否生成商店
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray< TSubclassOf<AEnemyBase> > EnemyTypes;

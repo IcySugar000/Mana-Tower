@@ -43,6 +43,20 @@ void ALevelMap::BeginPlay()
 	auto EndPos = MazeGenerator->GetEndRoomPosition();
 	UE_LOG(LogTemp, Warning, TEXT("END: %d, %d"), EndPos.Get<0>(), EndPos.Get<1>());
 
+	// 创建抽签用数组，用于生成不同种类的房间
+	TArray<int32> ShuffleList;
+	for (int i = 0; i < Size * Size; ++i) ShuffleList.Emplace(i);
+	const int32 NumShuffles = ShuffleList.Num() - 1;
+	for (int32 i = 0; i < NumShuffles; ++i) {
+		int32 SwapIdx = FMath::RandRange(i, NumShuffles);
+		ShuffleList.Swap(i, SwapIdx);
+	}
+	ShuffleList.Remove(0);  // 去除起始房间
+	ShuffleList.Remove(EndPos.Get<0>() * Size + EndPos.Get<1>());  // 去除终点房间
+
+	int32 StoreRoomId = -1;
+	if(IsAllowStore) StoreRoomId = ShuffleList.Pop();  // 商店的位置
+
 	// 初始化房间数组
 	for(int i=0; i<Size * Size; ++i) {
 		int roomXIndex = i / Size;
@@ -57,6 +71,10 @@ void ALevelMap::BeginPlay()
 		else if(roomXIndex == 0 && roomYIndex == 0) {  // 作为起点，设置为基类Room
 			newRoom = GetWorld()->SpawnActor<ARoomBase>(RoomBase, GetActorLocation(), GetActorRotation());
 			type = "Start";
+		}
+		else if(i == StoreRoomId) {  // 生成商店
+			newRoom = GetWorld()->SpawnActor<ARoomBase>(StoreRoom, GetActorLocation(), GetActorRotation());
+			type = "Store";
 		}
 		else {  // 其他房间为生成怪物的房间
 			newRoom = GetWorld()->SpawnActor<ARoomBase>(EnemyRoom, GetActorLocation(), GetActorRotation());

@@ -13,5 +13,17 @@ UCLASS()
 class MANATOWER_API AStoreRoom : public ARoomBase
 {
 	GENERATED_BODY()
-	
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ItemNum = 3;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FString> AvailableItems;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<FString, UPaperFlipbook*> StrToFB;
+
+	UFUNCTION(BlueprintCallable)
+	void GenerateItemList();
 };
