@@ -64,14 +64,12 @@ void ARhino::Tick(float deltaSeconds)
         auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
         auto playerLoaction = player->GetActorLocation();
         Direction = playerLoaction - location;
-        AttackCD -= deltaSeconds;
     }
     else {//其他情况，基类中CD会减少，需要补充的是不断确定冲刺方向
         auto location = GetActorLocation();
         auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
         auto playerLoaction = player->GetActorLocation();
         Direction = playerLoaction - location;
-        AttackCD -= deltaSeconds;
     }
 }
 
@@ -84,8 +82,8 @@ void ARhino::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* Othe
         float Damage = Attack;
         UGameplayStatics::ApplyDamage(enemy, Damage, GetController(), this, DamageTypeClass);
         UE_LOG(LogTemp, Warning, TEXT("HAHA, I ATTACK YOU!!!"));
-        AttackCD = MaxAttackCD;
     }
 
+    AttackCD = MaxAttackCD;
     RushTime = MaxRushTime;
 }
