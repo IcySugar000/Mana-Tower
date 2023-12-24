@@ -52,6 +52,7 @@ float AEnemyBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
     Health -= RealDamageAmout;
     if (Health <= 0 && !IsDead) {
         Health = 0;
+        BeforeDie(DamageCauser);
         Die();
     }
     UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);//报告收到的伤害
@@ -88,6 +89,14 @@ void AEnemyBase::Die()
     EnemyDie.Broadcast(this);  // 广播死亡事件给绑定的函数
 
     Destroy();
+}
+
+void AEnemyBase::BeforeDie(AActor* DamageCauser)
+{
+    auto player = Cast<APlayerBase>(DamageCauser);
+    if(player) {
+        player->AddCoin(Coin);
+    }
 }
 
 void AEnemyBase::MoveToPlayer()

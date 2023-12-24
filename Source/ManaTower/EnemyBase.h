@@ -6,7 +6,6 @@
 #include "PaperCharacter.h"
 #include "PaperFlipbookComponent.h"
 #include "EnemyBaseAttackDamageType.h"
-#include "Runtime/AIModule/Classes/AIController.h"
 #include "EnemyBase.generated.h"
 
 DECLARE_MULTICAST_DELEGATE_OneParam(EnemyDieDelegate, AEnemyBase*);
@@ -39,6 +38,7 @@ public:
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;//获取伤害
 
 	void Die();//死亡
+	void BeforeDie(AActor* DamageCauser);
 	void MoveToPlayer();//移动向玩家
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)//这行是使得下面定义的一行变量被Unreal看到
@@ -46,6 +46,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)//这行是使得下面定义的一行变量被Unreal看到
 	float MaxAttackCD;//最大攻击CD
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 Coin;  // 怪物身上有的金币 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FString, UPaperFlipbook*> FlipbookLibrary;
