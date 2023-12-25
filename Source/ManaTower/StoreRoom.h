@@ -9,6 +9,19 @@
 /**
  * 
  */
+
+USTRUCT(BlueprintType)
+struct FStoreItem {
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperFlipbook* Flipbook;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 Price;
+};
+
+
 UCLASS()
 class MANATOWER_API AStoreRoom : public ARoomBase
 {
@@ -22,7 +35,7 @@ public:
 	TArray<FString> AvailableItems;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<FString, UPaperFlipbook*> StrToFB;
+	TMap<FString, FStoreItem> StrToItem;
 
 	UFUNCTION(BlueprintCallable)
 	void GenerateItemList();

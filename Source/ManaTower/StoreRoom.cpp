@@ -7,9 +7,9 @@ void AStoreRoom::GenerateItemList()
 {
 	AvailableItems.Empty();
 
-	if(!StrToFB.IsEmpty()) {
+	if(!StrToItem.IsEmpty()) {
 		TArray<FString> keys;
-		StrToFB.GetKeys(keys);
+		StrToItem.GetKeys(keys);
 		for (int i = 0; i < ItemNum; ++i) {
 			// AvailableItems.Emplace(AllItems[FMath::Rand() % AllItems.Num()]);
 			AvailableItems.Emplace(keys[FMath::RandRange(0, keys.Num() - 1)]);
