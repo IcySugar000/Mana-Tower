@@ -24,7 +24,34 @@ ARadishRajesh::ARadishRajesh()
     capsule->OnComponentHit.Add(DelegateOverlap);
 }
 
-void ARadishRajesh::BeginPlay()
+void ARadishRajesh::BeginPlay()//开始游戏的BOSS初始
 {
+    Super::BeginPlay();
 
+    if (MaxHealth <= 0)
+        MaxHealth = 300;//如果初始值设置错误，将boss的血量设为300
+
+    Health = MaxHealth;//生命的初值为最大的生命值
+}
+
+void ARadishRajesh::Tick(float deltaSeconds)
+{
+    Super::Tick(deltaSeconds);
+
+    MoveToPlayer();       //每一帧都要执行MoveToPlayer函数
+}
+
+void ARadishRajesh::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    if (AttackCD > 0.0) 
+        return;
+
+    if (!Cast<APlayerBase>(OtherActor)) 
+        return;
+
+    auto enemy = Cast<APlayerBase>(OtherActor);
+    float Damage = Attack;
+    UGameplayStatics::ApplyDamage(enemy, Damage, GetController(), this, DamageTypeClass);
+    UE_LOG(LogTemp, Warning, TEXT("BOSS attack!"));
+    AttackCD = MaxAttackCD;
 }

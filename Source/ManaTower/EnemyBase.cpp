@@ -99,7 +99,7 @@ void AEnemyBase::BeforeDie(AActor* DamageCauser)
     }
 }
 
-void AEnemyBase::MoveToPlayer()
+void AEnemyBase::MoveToPlayer()//敌人的移动函数，移动的方向为向玩家方向
 {
     // AttackPlayer();
     auto location = GetActorLocation();

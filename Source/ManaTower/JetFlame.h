@@ -19,7 +19,7 @@ private:
 
 	float LifeTime;						//火柱生存时间
 	float Damage = 50;					//火柱造成的伤害
-	float AttackCD;
+	float AttackCD;						//火柱的CD值
 	APaperCharacter* SourcePlayer;		//火柱的伤害来源（默认为玩家）
 
 public:
@@ -29,7 +29,7 @@ public:
 
 	void SetSourcePlayer(APaperCharacter* player);  // 设置源玩家
 
-	void Attack();						//攻击、伤害函数
+	void Attack();						//攻击、伤害的函数
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxLifeTime = 2;				//最大的存在时间
@@ -39,5 +39,5 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 
-	TSubclassOf<UDamageType> DamageTypeClass = UFire_DamageType::StaticClass();	//火柱的伤害
+	TSubclassOf<UDamageType> DamageTypeClass = UFire_DamageType::StaticClass();	//火柱的伤害函数
 };

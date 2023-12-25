@@ -12,7 +12,8 @@ AJetFlame::AJetFlame()					//火柱的生成
 	AttackCD = 0;                       // 放出去就可以打伤害
 }
 
-void AJetFlame::Tick(float DeltaSeconds) {
+void AJetFlame::Tick(float DeltaSeconds) 
+{
 	Super::Tick(DeltaSeconds);
 
 	LifeTime -= DeltaSeconds;
@@ -24,11 +25,13 @@ void AJetFlame::Tick(float DeltaSeconds) {
 		Attack();  // 冷却到了就攻击
 }
 
-void AJetFlame::SetSourcePlayer(APaperCharacter* player) {
+void AJetFlame::SetSourcePlayer(APaperCharacter* player) 
+{
 	SourcePlayer = player;
 }
 
-void AJetFlame::Attack() {
+void AJetFlame::Attack() 
+{
 
 	// TODO
 	// 检测所有Overlap
