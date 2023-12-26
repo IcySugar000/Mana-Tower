@@ -18,7 +18,8 @@ AWoodenMan::AWoodenMan()
     Speed = 0.8;
     Distance = 400;
     Defense = 0.02;//基本数值设定
-  
+    MaxMoveCD = 0.8;
+    MoveCD = MaxMoveCD;
 }
 
 void AWoodenMan::BeginPlay()
@@ -37,12 +38,31 @@ void AWoodenMan::Tick(float deltaSeconds)
 {
     Super::Tick(deltaSeconds);
 
-    MoveToPlayer();
+
+    MoveToPlayer(deltaSeconds);
 
     AttackPlayer();
 }
 
 
+void AWoodenMan::MoveToPlayer(float deltaSeconds)//木头人的移动函数，移动的方向为向玩家方向
+{
+    
+    auto location = GetActorLocation();
+    auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
+    auto playerLoaction = player->GetActorLocation();
+    auto locationVec = playerLoaction - location;
+    auto DeltaDistance = locationVec.X * locationVec.X + locationVec.Y * locationVec.Y + locationVec.Z * locationVec.Z - Distance * Distance;
+    if (DeltaDistance > 0) {
+        if (MoveCD < 0)
+            AddMovementInput(locationVec, Speed, false);
+        else
+            MoveCD -= deltaSeconds;
+    }
+    else {
+        MoveCD = MaxMoveCD;
+    }
+}
 
 void AWoodenMan::AttackPlayer()
 {

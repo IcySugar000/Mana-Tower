@@ -13,7 +13,7 @@ UCLASS()
 class MANATOWER_API AWoodenManBullet : public ABulletBase
 {
 	GENERATED_BODY()
-	
+
 public:
 
 	virtual void BeginPlay() override;//构造后开始的函数
