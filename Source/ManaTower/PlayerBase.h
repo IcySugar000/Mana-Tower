@@ -99,6 +99,9 @@ public:
 	void RestoreMana(float amount); //恢复法力值
 
 	UFUNCTION(BlueprintCallable)
+	void RestoreHealth(float amount);//恢复生命值
+
+	UFUNCTION(BlueprintCallable)
 	int32 GetCoin();                //获取钱币数量
 
 	UFUNCTION(BlueprintCallable)

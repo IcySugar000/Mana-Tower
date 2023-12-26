@@ -86,6 +86,12 @@ void APlayerBase::RestoreMana(float amount) {
     if (Mana > MaxMana) Mana = MaxMana;
 }
 
+void APlayerBase::RestoreHealth(float amount)
+{
+    Health += amount;
+    if (Health > MaxHealth) Health = MaxHealth;
+}
+
 int32 APlayerBase::GetCoin()
 {
     return Coin;

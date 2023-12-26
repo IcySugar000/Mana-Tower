@@ -6,7 +6,7 @@
 #include "RoomBase.h"
 #include "StoreRoom.generated.h"
 
-/**
+/*
  * 
  */
 
@@ -39,4 +39,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void GenerateItemList();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float HealthFlaskAmount = 0.0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float ManaFlaskAmount = 0.0;
 };
