@@ -20,14 +20,14 @@ ARhino::ARhino()
     Defense = 0.3;//基本数值设定
     RushTime = MaxRushTime;
 
-    BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));
-    BoxComponent->SetupAttachment(RootComponent);
+    auto box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));
+    box->SetupAttachment(RootComponent);
 
     // auto capsule = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));
     FScriptDelegate DelegateOverlap;
     DelegateOverlap.BindUFunction(this, "AttackPlayer");
     // capsule->OnComponentHit.Add(DelegateOverlap);
-    BoxComponent->OnComponentHit.Add(DelegateOverlap);
+    box->OnComponentHit.Add(DelegateOverlap);
 }
 
 void ARhino::BeginPlay()

@@ -55,7 +55,7 @@ void UFlaminaSpellTranslator::RestoreMana()
 	auto player = Cast<APlayerBase>(GetOwner());
 
 	if (player) {
-		player->RestoreMana(10);
+		player->RestoreMana(20);
 	}
 }
 

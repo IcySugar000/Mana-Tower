@@ -100,6 +100,7 @@ void ALevelMap::BeginPlay()
 		else if(type == "Enemy") {
 			auto enemyRoom = Cast<AEnemyRoom>(newRoom);
 			enemyRoom->SetEnemyTypes(EnemyTypes);
+			enemyRoom->SetEnemyNum(EnemySpawnNum);
 		}
 
 		RoomArray.Emplace(newRoom);

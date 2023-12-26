@@ -37,6 +37,9 @@ public:
 	int32 Size = 3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 EnemySpawnNum = 3;  // 生成怪物个数
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString NextLevel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "EnemyBase.h"
-#include "Components/BoxComponent.h"
 #include "Rhino.generated.h"
 
 /**
@@ -26,9 +25,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)//这行是使得下面定义的一行变量被Unreal看到
 	float MaxRushTime = 2;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UBoxComponent> BoxComponent;
 
 	UFUNCTION()
 	void AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);

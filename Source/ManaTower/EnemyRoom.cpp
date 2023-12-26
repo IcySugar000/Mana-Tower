@@ -69,6 +69,11 @@ void AEnemyRoom::RemoveLock() {
 	LockSprites->ClearInstances();
 }
 
+void AEnemyRoom::SetEnemyNum(int32 Num)
+{
+	SpawnNum = Num;
+}
+
 void AEnemyRoom::OnEnter(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                          int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) {
 	if (IsHadEntered) return;

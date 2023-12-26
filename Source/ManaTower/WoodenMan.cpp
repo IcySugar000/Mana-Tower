@@ -16,7 +16,7 @@ AWoodenMan::AWoodenMan()
     MaxHealth = 80;
     Attack = 12;
     Speed = 0.8;
-    Distance = 400;
+    Distance = 500;
     Defense = 0.02;//基本数值设定
     MaxMoveCD = 0.8;
     MoveCD = MaxMoveCD;
