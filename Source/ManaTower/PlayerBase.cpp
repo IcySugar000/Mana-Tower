@@ -24,8 +24,15 @@ void APlayerBase::BeginPlay()
 {
     Super::BeginPlay();
 
-    Health = MaxHealth;
-    Mana = MaxMana;
+    if(IsModified) {
+        SetHealth(ModifiedHealth);
+        SetMana(ModifiedMana);
+        SetCoin(ModifiedCoin);
+    }
+    else {
+        Health = MaxHealth;
+        Mana = MaxMana;
+    }
 
     Controller = UGameplayStatics::GetPlayerController(this->GetWorld(), 0);
 
@@ -71,6 +78,13 @@ float APlayerBase::GetMana()
     return Mana;
 }
 
+void APlayerBase::SetMana(float mana)
+{
+    if (mana < 0) mana = 0;
+    if (mana > MaxMana) mana = MaxMana;
+    Mana = mana;
+}
+
 float APlayerBase::GetMaxMana()
 {
     return MaxMana;
@@ -92,6 +106,13 @@ void APlayerBase::RestoreHealth(float amount)
     if (Health > MaxHealth) Health = MaxHealth;
 }
 
+void APlayerBase::SetHealth(float health)
+{
+    if (health < 0) Die();
+    if (health > MaxHealth) health = MaxHealth;
+    Health = health;
+}
+
 int32 APlayerBase::GetCoin()
 {
     return Coin;
@@ -109,6 +130,20 @@ bool APlayerBase::RemoveCoin(int32 num)
         return true;
     }
     return false;
+}
+
+void APlayerBase::SetCoin(int32 num)
+{
+    if (num < 0) num = 0;
+    Coin = num;
+}
+
+void APlayerBase::SetModify(float health, float mana, float coin)
+{
+    ModifiedHealth = health;
+    ModifiedMana = mana;
+    ModifiedCoin = coin;
+    IsModified = true;
 }
 
 void APlayerBase::Tick(float DeltaSeconds)

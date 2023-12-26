@@ -49,6 +49,11 @@ protected:
 
 	int32 Coin = 0;               //所持有的金币数
 
+	bool IsModified = false;  // 是否修改过，即从上一个关卡中继承下列值
+	float ModifiedHealth = 0;
+	float ModifiedMana = 0;
+	int32 ModifiedCoin = 0;
+
 public:
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -62,25 +67,21 @@ public:
 	UUserWidget* MyMagicCircle;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-
 	UUserWidget* MyHealthbar;					//Widget MyHealthbar的构建
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-
 	UUserWidget* MyManabar;					//Widget MyManabar的构建
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UUserWidget> MagicCircleClass;				//MagicCircleClass的声明
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
-
 	TSubclassOf<UUserWidget> MainUIClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UUserWidget> HealthBarClass;				//HealthBarClass的声明
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
-
 	TSubclassOf<UUserWidget> ManaBarClass;					//ManaBarClass的声明
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -99,6 +100,9 @@ public:
 	float GetMana();				//获得当前魔法值的函数
 
 	UFUNCTION(BlueprintCallable)
+	void SetMana(float mana);
+
+	UFUNCTION(BlueprintCallable)
 	void LoseMana(float amount);    //失去法力值
 
 	UFUNCTION(BlueprintCallable)
@@ -108,6 +112,9 @@ public:
 	void RestoreHealth(float amount);//恢复生命值
 
 	UFUNCTION(BlueprintCallable)
+	void SetHealth(float health);
+
+	UFUNCTION(BlueprintCallable)
 	int32 GetCoin();                //获取钱币数量
 
 	UFUNCTION(BlueprintCallable)
@@ -115,6 +122,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool RemoveCoin(int32 num);     //减少钱币数量
+
+	UFUNCTION(BlueprintCallable)
+	void SetCoin(int32 num);
+
+	UFUNCTION(BlueprintCallable)
+	void SetModify(float health, float mana, float coin);
 
 	APlayerBase();
 
