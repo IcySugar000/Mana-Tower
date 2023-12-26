@@ -41,7 +41,7 @@ void ARadishRajesh::Tick(float deltaSeconds)
     MoveToPlayer();       //每一帧都要执行MoveToPlayer函数
 }
 
-void ARadishRajesh::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void ARadishRajesh::AttackPlayer1(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
     if (AttackCD > 0.0) 
         return;
@@ -54,6 +54,11 @@ void ARadishRajesh::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActo
     UGameplayStatics::ApplyDamage(enemy, Damage, GetController(), this, DamageTypeClass);
     UE_LOG(LogTemp, Warning, TEXT("BOSS attack!")); //怪物boss近战攻击玩家的函数
     AttackCD = MaxAttackCD;
+}
+
+void ARadishRajesh::AttackPlayer2()
+{
+
 }
 
 float ARadishRajesh::GetHealth()               //获取怪物boss的当前血量值

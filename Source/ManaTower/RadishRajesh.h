@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "EnemyBase.h"
+#include "BulletBase.h"
 #include "RadishRajesh.generated.h"
 
 /**
@@ -30,14 +31,20 @@ public:
 
 	UFUNCTION()
 
-	void AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);	//近战攻击函数
+	void AttackPlayer1(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);	//近战攻击函数
+
+	UFUNCTION()
+
+	void AttackPlayer2();		//子弹射击函数
 
 	UFUNCTION(BlueprintCallable)
 
-	float GetHealth();				//获得当前生命值的函数
+	float GetHealth();				//获得Boss当前生命值的函数
 
 	UFUNCTION(BlueprintCallable)
 
-	float GetMaxHealth();			//获得最大生命值的函数
+	float GetMaxHealth();			//获得Boss最大生命值的函数
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<APaperCharacter> BulletClass = ABulletBase::StaticClass();
 };
