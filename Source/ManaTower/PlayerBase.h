@@ -23,11 +23,17 @@ protected:
 	UUserWidget* MyMainUI;
 
 	virtual void BeginPlay() override;			//开始游戏
+
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+
 	void MoveRight(float ScaleValue);			//左右移动
+
 	void MoveUp(float ScaleValue);				//上下移动
+
 	void UpdateFlipbook();						//更改动画
+	
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;//玩家获取伤害获取伤害
+	
 	void Die();									//死亡
 
 	float Attack;				//攻击力

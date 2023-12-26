@@ -52,6 +52,16 @@ void ARadishRajesh::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActo
     auto enemy = Cast<APlayerBase>(OtherActor);
     float Damage = Attack;
     UGameplayStatics::ApplyDamage(enemy, Damage, GetController(), this, DamageTypeClass);
-    UE_LOG(LogTemp, Warning, TEXT("BOSS attack!"));
+    UE_LOG(LogTemp, Warning, TEXT("BOSS attack!")); //怪物boss近战攻击玩家的函数
     AttackCD = MaxAttackCD;
+}
+
+float ARadishRajesh::GetHealth()               //获取怪物boss的当前血量值
+{
+    return Health;
+}
+
+float ARadishRajesh::GetMaxHealth()            //获取怪物boss的最大血量值
+{
+    return MaxHealth;
 }

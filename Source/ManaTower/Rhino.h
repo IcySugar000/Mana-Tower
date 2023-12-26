@@ -18,10 +18,12 @@ class MANATOWER_API ARhino : public AEnemyBase
 private:
 	float RushTime;
 	FVector Direction = FVector(0, 0, 0);
+
 public:
 	ARhino();//构造犀牛
 
 	virtual void BeginPlay() override;//构造后开始的函数
+
 	virtual void Tick(float deltaSeconds) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)//这行是使得下面定义的一行变量被Unreal看到

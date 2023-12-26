@@ -14,9 +14,9 @@ ARhino::ARhino()
 
     IsDead = false;
     IsHadReportedDead = false;//活着的怪物
-    MaxHealth = 80;
-    Attack = 20;
-    Speed = 1200;
+    MaxHealth = 80;             //最大的生命值
+    Attack = 20;                //攻击力
+    Speed = 1200;               //移动的速度
     Defense = 0.3;//基本数值设定
     RushTime = MaxRushTime;
 

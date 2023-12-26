@@ -14,7 +14,12 @@ UCLASS()
 class MANATOWER_API ARadishRajesh : public AEnemyBase
 {
 	GENERATED_BODY()
+protected:
 
+	float Attack;
+
+	float  Maxhealth = 300;	//最大生命值
+	float Health;			//当前生命值
 public:
 
 	ARadishRajesh();//构造Boss怪
@@ -26,4 +31,13 @@ public:
 	UFUNCTION()
 
 	void AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);	//近战攻击函数
+
+	UFUNCTION(BlueprintCallable)
+
+	float GetHealth();				//获得当前生命值的函数
+
+	UFUNCTION(BlueprintCallable)
+
+	float GetMaxHealth();			//获得最大生命值的函数
+
 };
