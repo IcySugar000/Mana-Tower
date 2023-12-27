@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "RadishRajesh.h"
 #include "PlayerBase.h"
+#include "WoodenManBullet.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/CapsuleComponent.h"
 
@@ -12,10 +12,13 @@ ARadishRajesh::ARadishRajesh()
     FlipbookLibrary.FindOrAdd(FString("Move"));
 
     IsDead = false;
-    IsHadReportedDead = false;//活着的Boss
+    IsHadReportedDead = false;//活着的怪物
     MaxHealth = 300;
-    Attack = 10;
-    Speed = 1;
+    Defense = 0.3;
+    BossState = 0;
+    AttackCD = 0.1;
+    MaxAttackCD = 1.2;
+    RecordTime = 0;
     //一些Boss的基本功能的设定
 
     auto capsule = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));
@@ -38,35 +41,89 @@ void ARadishRajesh::Tick(float deltaSeconds)
 {
     Super::Tick(deltaSeconds);
 
-    MoveToPlayer();       //每一帧都要执行MoveToPlayer函数
+    WhichState();
+
+    RecordTime += deltaSeconds;
+
+    MoveToPlayer();//每一帧都要执行MoveToPlayer函数
 }
 
-void ARadishRajesh::AttackPlayer1(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void ARadishRajesh::MoveToPlayer()//Boss的移动函数，移动的方向为向玩家方向
 {
-    if (AttackCD > 0.0) 
+    if (BossState == 0)
+        return;
+    auto location = GetActorLocation();
+    auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
+    auto playerLoaction = player->GetActorLocation();
+    auto locationVec = playerLoaction - location;
+    if (BossState == 1)
+    {
+        AddMovementInput(locationVec, StateSpeed[1], false);
+    }
+    else if (BossState == 3)
+    {
+        if (RecordTime < 2 && RecordTime > 0.1)
+        {
+            Direction.Normalize();
+            AddMovementInput(Direction, StateSpeed[3], false);
+            //BossState = 3;
+        }
+        else
+        {
+            Direction = playerLoaction - location;
+        }
+    }
+    //木头人模式的攻击被整合在Move中
+    else if (!IsHaveShort)
+    {
+        auto myBullet = GetWorld()->SpawnActor<AWoodenManBullet>(BulletClass,
+            GetActorLocation(),
+            FRotator(0.0, 0.0, 0.0));
+        if (myBullet) // 防止bug
+        {
+            myBullet->SetSource(this);
+            myBullet->SetDamage(FMath::RandRange(15, 26));
+        }
+        IsHaveShort = 1;
+    }
+}
+
+void ARadishRajesh::WhichState()
+{
+    UE_LOG(LogTemp, Warning, TEXT("%f"), RecordTime);
+    UE_LOG(LogTemp, Warning, TEXT("%d"), BossState);
+    if (RecordTime >= 3 && BossState == 0)
+    {
+        BossState = FMath::RandRange(1,3);
+        IsHaveShort = 0;
+        AttackCD = 0.1;
+        RecordTime = 0;
+    }
+    else if ((RecordTime >= 5 && BossState == 1) || (RecordTime >= 3 && BossState == 2) || (RecordTime >= 2 && BossState == 3))
+    {
+        RecordTime = 0;
+        BossState = 0;
+    }
+        
+}
+
+void ARadishRajesh::AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    if (AttackCD > 0.0)
         return;
 
-    if (!Cast<APlayerBase>(OtherActor)) 
+    if (!Cast<APlayerBase>(OtherActor))
         return;
 
     auto enemy = Cast<APlayerBase>(OtherActor);
-    float Damage = Attack;
+
+    float Damage = 0;
+    if (BossState == 1)
+        Damage = FMath::RandRange(15, 31);
+    else
+        Damage = FMath::RandRange(20, 41);
+
     UGameplayStatics::ApplyDamage(enemy, Damage, GetController(), this, DamageTypeClass);
-    UE_LOG(LogTemp, Warning, TEXT("BOSS attack!")); //怪物boss近战攻击玩家的函数
+    UE_LOG(LogTemp, Warning, TEXT("HAHA, BOSS ATTACK YOU!!!"));
     AttackCD = MaxAttackCD;
-}
-
-void ARadishRajesh::AttackPlayer2()
-{
-
-}
-
-float ARadishRajesh::GetHealth()               //获取怪物boss的当前血量值
-{
-    return Health;
-}
-
-float ARadishRajesh::GetMaxHealth()            //获取怪物boss的最大血量值
-{
-    return MaxHealth;
 }

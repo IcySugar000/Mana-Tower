@@ -8,42 +8,35 @@
 #include "RadishRajesh.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 
 class MANATOWER_API ARadishRajesh : public AEnemyBase
 {
 	GENERATED_BODY()
-protected:
 
-	float Attack;
-
-	float  Maxhealth = 300;	//最大生命值
-	float Health;			//当前生命值
+private:
+	__int32 BossState = 0;//1:近战状态（兔子） 2：远攻状态（木头人） 3：冲刺状态（犀牛） 0:闲置状态
+	TArray<float> StateSpeed = { 0,0.004,0,1200 };
+	FVector Direction = FVector(0, 0, 0);
+	float RecordTime;
+	bool IsHaveShort = 0;
 public:
 
-	ARadishRajesh();//构造Boss怪
+	ARadishRajesh();//构造Boss
 
 	virtual void BeginPlay() override;//构造后开始的函数
-
 	virtual void Tick(float deltaSeconds) override;//每一帧所要执行的函数
 
 	UFUNCTION()
-
-	void AttackPlayer1(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);	//近战攻击函数
+	void WhichState();
 
 	UFUNCTION()
+	void MoveToPlayer();
 
-	void AttackPlayer2();		//子弹射击函数
-
-	UFUNCTION(BlueprintCallable)
-
-	float GetHealth();				//获得Boss当前生命值的函数
-
-	UFUNCTION(BlueprintCallable)
-
-	float GetMaxHealth();			//获得Boss最大生命值的函数
+	UFUNCTION()
+	void AttackPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<APaperCharacter> BulletClass = ABulletBase::StaticClass();
