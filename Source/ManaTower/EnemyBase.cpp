@@ -113,4 +113,14 @@ void AEnemyBase::MoveToPlayer()//敌人的移动函数，移动的方向为向玩家方向
 
 }
 
+float AEnemyBase::GetHealth()
+{
+    return Health;
+}
+
+float AEnemyBase::GetMaxHealth()
+{
+    return MaxHealth;
+}
+
 

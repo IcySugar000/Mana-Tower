@@ -27,9 +27,5 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void OnBossDie(AEnemyBase* Enemy);
 
-	UFUNCTION(BlueprintNativeEvent)
-	void SetupHealthBar();
-
 	void OnBossDie_Implementation(AEnemyBase* Enemy);
-	void SetupHealthBar_Implementation();
 };

@@ -3,17 +3,23 @@
 
 #include "BossRoom.h"
 
+
 void ABossRoom::BeginPlay() {
 	Super::BeginPlay();
 
 	SetEdge(TArray<int>());
 
 	if(BossClass) {
-		auto boss = GetWorld()->SpawnActor<AEnemyBase>(BossClass, GetCenterLocation(), GetActorRotation());
-		boss->EnemyDie.AddUFunction(this, "OnBossDie");
+		Boss = GetWorld()->SpawnActor<AEnemyBase>(BossClass, GetCenterLocation(), GetActorRotation());
+		Boss->EnemyDie.AddUFunction(this, "OnBossDie");
+		SetupHealthBar();
 	}
 }
 
 void ABossRoom::OnBossDie_Implementation(AEnemyBase* Enemy)
+{
+}
+
+void ABossRoom::SetupHealthBar_Implementation()
 {
 }

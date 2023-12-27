@@ -41,6 +41,12 @@ public:
 	void BeforeDie(AActor* DamageCauser);
 	void MoveToPlayer();//移动向玩家
 
+	UFUNCTION(BlueprintCallable)
+	float GetHealth();
+
+	UFUNCTION(BlueprintCallable)
+	float GetMaxHealth();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)//这行是使得下面定义的一行变量被Unreal看到
 	float MaxHealth;//对基类的MaxHealth赋初值，防止错误
 
