@@ -38,7 +38,7 @@ void ARhino::BeginPlay()
         MaxHealth = 80;//如果最大生命值出现设置错误，那么就改成80
 
     MaxAttackCD = 4;
-    AttackCD = 0;
+    AttackCD = FMath::RandRange(0.5, 1.0) * MaxAttackCD;
     Health = MaxHealth;//生命初值为最大生命值
     auto location = GetActorLocation();
     auto player = GetWorld()->GetFirstPlayerController()->GetPawn();
