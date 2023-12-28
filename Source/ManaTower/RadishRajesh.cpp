@@ -13,7 +13,7 @@ ARadishRajesh::ARadishRajesh()
 
     IsDead = false;
     IsHadReportedDead = false;//活着的怪物
-    MaxHealth = 300;
+    MaxHealth = 600;
     Defense = 0.3;
     BossState = 0;
     AttackCD = 0.1;
@@ -32,7 +32,7 @@ void ARadishRajesh::BeginPlay()//开始游戏的BOSS初始
     Super::BeginPlay();
 
     if (MaxHealth <= 0)
-        MaxHealth = 300;//如果初始值设置错误，将boss的血量设为300
+        MaxHealth = 600;//如果初始值设置错误，将boss的血量设为600
 
     Health = MaxHealth;//生命的初值为最大的生命值
 }
@@ -74,7 +74,7 @@ void ARadishRajesh::MoveToPlayer()//Boss的移动函数，移动的方向为向玩家方向
         }
     }
     //木头人模式的攻击被整合在Move中
-    else if (!IsHaveShort)
+    else if (IsHaveShort<=5 && RecordTime >= IsHaveShort)
     {
         auto myBullet = GetWorld()->SpawnActor<AWoodenManBullet>(BulletClass,
             GetActorLocation(),
@@ -84,22 +84,22 @@ void ARadishRajesh::MoveToPlayer()//Boss的移动函数，移动的方向为向玩家方向
             myBullet->SetSource(this);
             myBullet->SetDamage(FMath::RandRange(15, 26));
         }
-        IsHaveShort = 1;
+        IsHaveShort += 0.13;
     }
 }
 
 void ARadishRajesh::WhichState()
 {
-    UE_LOG(LogTemp, Warning, TEXT("%f"), RecordTime);
-    UE_LOG(LogTemp, Warning, TEXT("%d"), BossState);
+   // UE_LOG(LogTemp, Warning, TEXT("%f"), RecordTime);
+    //UE_LOG(LogTemp, Warning, TEXT("%d"), BossState);
     if (RecordTime >= 3 && BossState == 0)
     {
         BossState = FMath::RandRange(1,3);
-        IsHaveShort = 0;
+        IsHaveShort = 0.2;
         AttackCD = 0.1;
         RecordTime = 0;
     }
-    else if ((RecordTime >= 5 && BossState == 1) || (RecordTime >= 3 && BossState == 2) || (RecordTime >= 2 && BossState == 3))
+    else if ((RecordTime >= 5 && BossState == 1) || (RecordTime >= 5 && BossState == 2) || (RecordTime >= 2 && BossState == 3))
     {
         RecordTime = 0;
         BossState = 0;

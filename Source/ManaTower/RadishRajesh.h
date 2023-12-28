@@ -18,10 +18,10 @@ class MANATOWER_API ARadishRajesh : public AEnemyBase
 
 private:
 	__int32 BossState = 0;//1:½üÕ½×´Ì¬£¨ÍÃ×Ó£© 2£ºÔ¶¹¥×´Ì¬£¨Ä¾Í·ÈË£© 3£º³å´Ì×´Ì¬£¨Ï¬Å££© 0:ÏÐÖÃ×´Ì¬
-	TArray<float> StateSpeed = { 0,0.004,0,1200 };
+	TArray<float> StateSpeed = { 0,0.001,0,1200 };
 	FVector Direction = FVector(0, 0, 0);
 	float RecordTime;
-	bool IsHaveShort = 0;
+	float IsHaveShort = 0;
 public:
 
 	ARadishRajesh();//¹¹ÔìBoss

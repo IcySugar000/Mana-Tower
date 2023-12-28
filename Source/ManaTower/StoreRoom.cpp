@@ -10,9 +10,13 @@ void AStoreRoom::GenerateItemList()
 	if(!StrToItem.IsEmpty()) {
 		TArray<FString> keys;
 		StrToItem.GetKeys(keys);
-		for (int i = 0; i < ItemNum; ++i) {
-			// AvailableItems.Emplace(AllItems[FMath::Rand() % AllItems.Num()]);
+
+		while (AvailableItems.Num() < ItemNum) {
 			AvailableItems.Emplace(keys[FMath::RandRange(0, keys.Num() - 1)]);
 		}
+		//for (int i = 0; i < ItemNum; ++i) {
+			// AvailableItems.Emplace(AllItems[FMath::Rand() % AllItems.Num()]);
+			//AvailableItems.Emplace(keys[FMath::RandRange(0, keys.Num() - 1)]);
+		//}
 	}
 }
