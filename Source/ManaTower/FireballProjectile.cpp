@@ -69,7 +69,9 @@ void AFireballProjectile::HitTarget()
 	//如果这个交集存放的数组（敌人）不为空，即打到了敌人
 	if (!OverlapActors.IsEmpty()) {
 		//由于火球是只造成最先碰到的敌人的伤害的，所以OverlapActors[0]表示第一个受到伤害的敌人，给其造成伤害
-		UGameplayStatics::ApplyDamage(OverlapActors[0], Damage, GetController(), SourcePlayer, DamageTypeClass);
+		float realDamage = UGameplayStatics::ApplyDamage(OverlapActors[0], Damage, GetController(), SourcePlayer, DamageTypeClass);
+		auto player = Cast<APlayerBase>(SourcePlayer);
+		if (player) player->RestoreHealth(realDamage * 0.05);
 		Destroy();
 	}
 	

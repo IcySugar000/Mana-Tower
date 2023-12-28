@@ -48,8 +48,9 @@ void AEnemyBase::Tick(float DeltaSeconds) {
 
 float AEnemyBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-    float RealDamageAmout = DamageAmount * (1.0 - Defense);//怪物受到的真实伤害
-    Health -= RealDamageAmout;
+    float RealDamageAmount = DamageAmount * (1.0 - Defense);//怪物受到的真实伤害
+    if (Health <= RealDamageAmount) RealDamageAmount = Health;
+    Health -= RealDamageAmount;
     if (Health <= 0 && !IsDead) {
         Health = 0;
         BeforeDie(DamageCauser);
@@ -57,7 +58,7 @@ float AEnemyBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
     }
     UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);//报告收到的伤害
     
-    return 0.0f;
+    return RealDamageAmount;
 }
 
 void AEnemyBase::UpdateFlipbook()
