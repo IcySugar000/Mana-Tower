@@ -74,7 +74,7 @@ void ARadishRajesh::MoveToPlayer()//Boss的移动函数，移动的方向为向玩家方向
         }
     }
     //木头人模式的攻击被整合在Move中
-    else if (IsHaveShort<=5 && RecordTime >= IsHaveShort)
+    else if (IsHaveShort <= 5 && RecordTime >= IsHaveShort)
     {
         auto myBullet = GetWorld()->SpawnActor<AWoodenManBullet>(BulletClass,
             GetActorLocation(),
@@ -82,7 +82,7 @@ void ARadishRajesh::MoveToPlayer()//Boss的移动函数，移动的方向为向玩家方向
         if (myBullet) // 防止bug
         {
             myBullet->SetSource(this);
-            myBullet->SetDamage(FMath::RandRange(15, 26));
+            myBullet->SetDamage(FMath::RandRange(8, 16));
         }
         IsHaveShort += 0.13;
     }

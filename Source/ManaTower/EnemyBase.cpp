@@ -109,7 +109,8 @@ void AEnemyBase::MoveToPlayer()//敌人的移动函数，移动的方向为向玩家方向
     auto locationVec = playerLoaction - location;
     if (locationVec.X * locationVec.X + locationVec.Y * locationVec.Y + locationVec.Z * locationVec.Z > Distance * Distance) {
         // if (player) UE_LOG(LogTemp, Warning, TEXT("%lf %lf %lf"), locationVec.X, locationVec.Y, locationVec.Z);
-        AddMovementInput(locationVec, Speed, false);
+        locationVec.Normalize();
+    	AddMovementInput(locationVec, Speed, false);
     }
 
 }
