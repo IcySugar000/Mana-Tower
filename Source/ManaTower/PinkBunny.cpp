@@ -15,7 +15,7 @@ APinkBunny::APinkBunny()
     IsHadReportedDead = false;//活着的怪物
     MaxHealth = 100;
     Attack = 10;
-    Speed = 0.003;
+    Speed = 0.001;
     Defense = 0.038;//基本数值设定
     //小彩蛋 
 

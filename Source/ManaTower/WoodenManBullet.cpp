@@ -11,8 +11,8 @@ void AWoodenManBullet::BeginPlay()
 {
 	Super::BeginPlay();
 
-	MaxLifeTime = 3;
-	Speed = 960;
+	MaxLifeTime = 3.5;
+	Speed = 1200;
 	LifeTime = MaxLifeTime;
 	ProjectileComponent->InitialSpeed = Speed;
 	ProjectileComponent->MaxSpeed = Speed;
