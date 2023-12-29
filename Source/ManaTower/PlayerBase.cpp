@@ -7,6 +7,7 @@
 #include "PaperCharacter.h"
 #include "PaperFlipbookComponent.h"
 #include "Blueprint/UserWidget.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 APlayerBase::APlayerBase()
@@ -152,6 +153,12 @@ void APlayerBase::SetModify(float health, float mana, float coin, bool vampirism
     IsVampirism = vampirism;
     IsSpeedUp = speedup;
     IsAutoManaRestore = autoManaRestore;
+
+    if (IsSpeedUp) {
+        auto movement = GetComponentByClass<UCharacterMovementComponent>();
+        movement->MaxFlySpeed *= 1.2;
+    }
+
     IsModified = true;
 }
 
@@ -159,6 +166,10 @@ void APlayerBase::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
     UpdateFlipbook();
+
+    if(IsAutoManaRestore) {
+        RestoreMana(1.0 * DeltaSeconds);
+    }
 }
 
 void APlayerBase::CastSpell(TArray<uint8> ExistLines) 

@@ -33,7 +33,7 @@ protected:
 	void UpdateFlipbook();						//更改动画
 	
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;//玩家获取伤害获取伤害
-	
+
 	void Die();									//死亡
 
 	float Attack;				//攻击力
