@@ -55,7 +55,9 @@ void ALevelMap::BeginPlay()
 	ShuffleList.Remove(EndPos.Get<0>() * Size + EndPos.Get<1>());  // 去除终点房间
 
 	int32 StoreRoomId = -1;
+	int32 StatueRoomId = -1;
 	if(IsAllowStore) StoreRoomId = ShuffleList.Pop();  // 商店的位置
+	if (IsAllowStatue) StatueRoomId = ShuffleList.Pop();  // 神像的位置
 
 	// 初始化房间数组
 	for(int i=0; i<Size * Size; ++i) {
@@ -75,6 +77,10 @@ void ALevelMap::BeginPlay()
 		else if(i == StoreRoomId) {  // 生成商店
 			newRoom = GetWorld()->SpawnActor<ARoomBase>(StoreRoom, GetActorLocation(), GetActorRotation());
 			type = "Store";
+		}
+		else if(i == StatueRoomId) {
+			newRoom = GetWorld()->SpawnActor<ARoomBase>(StatueRoom, GetActorLocation(), GetActorRotation());
+			type = "Statue";
 		}
 		else {  // 其他房间为生成怪物的房间
 			newRoom = GetWorld()->SpawnActor<ARoomBase>(EnemyRoom, GetActorLocation(), GetActorRotation());
