@@ -87,6 +87,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<USpellTranslator> Translator;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsSpeedUp = false;
+
+	UPROPERTY(EditAnywherem, BlueprintReadWrite)
+	bool IsAutoManaRestore = false;
+
+	UPROPERTY(EditAnywherem, BlueprintReadWrite)
+	bool IsVampirism = false;
+
 	UFUNCTION(BlueprintCallable)
 	const float GetHealth();				//获得当前生命值的函数
 
