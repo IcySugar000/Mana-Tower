@@ -90,10 +90,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsSpeedUp = false;
 
-	UPROPERTY(EditAnywherem, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsAutoManaRestore = false;
 
-	UPROPERTY(EditAnywherem, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsVampirism = false;
 
 	UFUNCTION(BlueprintCallable)
