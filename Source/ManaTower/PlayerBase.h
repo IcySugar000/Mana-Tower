@@ -136,7 +136,7 @@ public:
 	void SetCoin(int32 num);
 
 	UFUNCTION(BlueprintCallable)
-	void SetModify(float health, float mana, float coin);
+	void SetModify(float health, float mana, float coin, bool vampirism, bool speedup, bool autoManaRestore);
 
 	APlayerBase();
 

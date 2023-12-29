@@ -144,11 +144,14 @@ void APlayerBase::SetCoin(int32 num)
     Coin = num;
 }
 
-void APlayerBase::SetModify(float health, float mana, float coin)
+void APlayerBase::SetModify(float health, float mana, float coin, bool vampirism, bool speedup, bool autoManaRestore)
 {
     ModifiedHealth = health;
     ModifiedMana = mana;
     ModifiedCoin = coin;
+    IsVampirism = vampirism;
+    IsSpeedUp = speedup;
+    IsAutoManaRestore = autoManaRestore;
     IsModified = true;
 }
 
