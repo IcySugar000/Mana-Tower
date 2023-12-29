@@ -8,7 +8,8 @@
 
 class APlayerBase;
 
-void UFlaminaSpellTranslator::CastSpell(FName Name, int Rotation) {
+void UFlaminaSpellTranslator::CastSpell(FName Name, int Rotation) 
+{
 	Super::CastSpell(Name, Rotation);
 
 	if (Name == "Fireball")				//invoking Fireball(Rotation) Function
@@ -54,7 +55,8 @@ void UFlaminaSpellTranslator::RestoreMana()
 	//Cast PlayerBase
 	auto player = Cast<APlayerBase>(GetOwner());
 
-	if (player) {
+	if (player) 
+	{
 		player->RestoreMana(20);
 	}
 }
@@ -81,8 +83,10 @@ void UFlaminaSpellTranslator::Canister(int Rotation)
 			GetOwner()->GetActorLocation(),
 			FRotator(-60.0 * Rotation + FMath::RandRange(-30.0, 30.0), 0.0, 0.0));
 		//SetSourcePlayer function
-		if (myFireball) myFireball->SetSourcePlayer(player);
-		else UE_LOG(LogTemp, Warning, TEXT("NO fireball"));
+		if (myFireball) 
+			myFireball->SetSourcePlayer(player);
+		else 
+			UE_LOG(LogTemp, Warning, TEXT("NO fireball"));
 	}
 }
 

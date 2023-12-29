@@ -11,7 +11,8 @@
  */
 
 USTRUCT(BlueprintType)
-struct FStoreItem {
+struct FStoreItem
+{
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

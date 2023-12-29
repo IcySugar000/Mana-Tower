@@ -5,7 +5,8 @@
 #include "PaperGroupedSpriteComponent.h"
 #include "Components/SphereComponent.h"
 
-ARoomBase::ARoomBase() {
+ARoomBase::ARoomBase() 
+{
 	GroupedSpriteComponent = GetRenderComponent();
 
 	// ´´½¨¼ì²âÈ¦
@@ -14,11 +15,13 @@ ARoomBase::ARoomBase() {
 	DetectSphere->SetupAttachment(RootComponent);
 }
 
-void ARoomBase::SetCenterLocation(FVector location) {
+void ARoomBase::SetCenterLocation(FVector location) 
+{
 	CenterLocation = location;
 }
 
-FVector ARoomBase::GetCenterLocation() {
+FVector ARoomBase::GetCenterLocation() 
+{
 	return CenterLocation;
 }
 
@@ -27,13 +30,16 @@ void ARoomBase::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ARoomBase::SetEdge(TArray<int> doors) {
-	if (Edge) {
+void ARoomBase::SetEdge(TArray<int> doors)
+{
+	if (Edge)
+	{
 		auto NowTransform = FTransform();
 		float bias = EdgeLength * FMath::Sin(FMath::DegreesToRadians(60.0)) - EdgeWidth / 2.0;
 		FVector2D InitialPos = FVector2D(0.0, bias);
 
-		for (int i = 0; i < 6; ++i) {
+		for (int i = 0; i < 6; ++i)
+		{
 			auto newInitialPos = InitialPos.GetRotated(-30.0 - 60.0 * i);
 			auto newTransform = NowTransform;
 			newTransform.SetLocation(FVector(newInitialPos.X, 0.0, newInitialPos.Y));

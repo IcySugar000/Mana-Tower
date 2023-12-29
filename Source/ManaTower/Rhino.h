@@ -16,6 +16,7 @@ class MANATOWER_API ARhino : public AEnemyBase
 	GENERATED_BODY()
 	
 private:
+
 	float RushTime;
 	FVector Direction = FVector(0, 0, 0);
 

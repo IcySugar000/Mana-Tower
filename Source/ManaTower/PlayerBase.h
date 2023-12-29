@@ -88,16 +88,16 @@ public:
 	TObjectPtr<USpellTranslator> Translator;
 
 	UFUNCTION(BlueprintCallable)
-	float GetHealth();				//获得当前生命值的函数
+	const float GetHealth();				//获得当前生命值的函数
 
 	UFUNCTION(BlueprintCallable)
-	float GetMaxHealth();			//获得最大生命值的函数
+	const float GetMaxHealth();			//获得最大生命值的函数
 
 	UFUNCTION(BlueprintCallable)
-	float GetMaxMana();				//获得最大魔法值的函数
+	const float GetMaxMana();				//获得最大魔法值的函数
 
 	UFUNCTION(BlueprintCallable)
-	float GetMana();				//获得当前魔法值的函数
+	const float GetMana();				//获得当前魔法值的函数
 
 	UFUNCTION(BlueprintCallable)
 	void SetMana(float mana);

@@ -24,12 +24,14 @@ void APlayerBase::BeginPlay()
 {
     Super::BeginPlay();
 
-    if(IsModified) {
+    if(IsModified) 
+    {
         SetHealth(ModifiedHealth);
         SetMana(ModifiedMana);
         SetCoin(ModifiedCoin);
     }
-    else {
+    else
+    {
         Health = MaxHealth;
         Mana = MaxMana;
     }
@@ -63,17 +65,17 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
     InputComponent->BindAxis(TEXT("Move_Up"), this, &APlayerBase::MoveUp);
 }
 
-float APlayerBase::GetHealth()
+const float APlayerBase::GetHealth()
 {
     return Health;
 }
 
-float APlayerBase::GetMaxHealth()
+const float APlayerBase::GetMaxHealth()
 {
     return MaxHealth;
 }
 
-float APlayerBase::GetMana()
+const float APlayerBase::GetMana()
 {
     return Mana;
 }
@@ -85,17 +87,19 @@ void APlayerBase::SetMana(float mana)
     Mana = mana;
 }
 
-float APlayerBase::GetMaxMana()
+const float APlayerBase::GetMaxMana()
 {
     return MaxMana;
 }
 
-void APlayerBase::LoseMana(float amount) {
+void APlayerBase::LoseMana(float amount) 
+{
     Mana -= amount;
     if (Mana < 0) Mana = 0;
 }
 
-void APlayerBase::RestoreMana(float amount) {
+void APlayerBase::RestoreMana(float amount) 
+{
     Mana += amount;
     if (Mana > MaxMana) Mana = MaxMana;
 }
@@ -125,7 +129,8 @@ void APlayerBase::AddCoin(int32 num)
 
 bool APlayerBase::RemoveCoin(int32 num)
 {
-    if (Coin >= num) {
+    if (Coin >= num) 
+    {
         Coin -= num;
         return true;
     }
@@ -134,7 +139,8 @@ bool APlayerBase::RemoveCoin(int32 num)
 
 void APlayerBase::SetCoin(int32 num)
 {
-    if (num < 0) num = 0;
+    if (num < 0) 
+        num = 0;
     Coin = num;
 }
 
@@ -152,11 +158,14 @@ void APlayerBase::Tick(float DeltaSeconds)
     UpdateFlipbook();
 }
 
-void APlayerBase::CastSpell(TArray<uint8> ExistLines) {
-    if (Translator) {
+void APlayerBase::CastSpell(TArray<uint8> ExistLines) 
+{
+    if (Translator) 
+    {
         Translator->Translate(ExistLines);
     }
-    else {
+    else 
+    {
         UE_LOG(LogTemp, Error, TEXT("No Translator!"));
     }
 }
@@ -164,10 +173,12 @@ void APlayerBase::CastSpell(TArray<uint8> ExistLines) {
 void APlayerBase::MoveRight(float ScaleValue)       //负数表示向左移动
 {
     AddMovementInput(FVector(1, 0, 0), ScaleValue, false);
-    if (ScaleValue < 0.0) {
+    if (ScaleValue < 0.0)
+    {
         Controller->SetControlRotation(FRotator(0, 180, 0));
     }
-    else {
+    else 
+    {
         Controller->SetControlRotation(FRotator(0, 0, 0));
     }
 }
@@ -181,16 +192,20 @@ void APlayerBase::UpdateFlipbook()
 {
     auto FlipbookComponent = GetSprite();
     auto velocity = GetVelocity();
-    if (velocity.Size() > 0) {
+    if (velocity.Size() > 0)
+    {
         FlipbookComponent->SetFlipbook(FlipbookLibrary[FString("Run")]);
-        if (velocity.X < 0) {
+        if (velocity.X < 0)
+        {
             Controller->SetControlRotation(FRotator(0, 180, 0));
         }
-        if (velocity.X > 0) {
+        if (velocity.X > 0)
+        {
             Controller->SetControlRotation(FRotator(0, 0, 0));
         }
     }
-    else {
+    else 
+    {
         FlipbookComponent->SetFlipbook(FlipbookLibrary[FString("Idle")]);
     }
 }

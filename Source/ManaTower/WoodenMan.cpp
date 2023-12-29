@@ -53,13 +53,15 @@ void AWoodenMan::MoveToPlayer(float deltaSeconds)//Ä¾Í·ÈËµÄÒÆ¶¯º¯Êý£¬ÒÆ¶¯µÄ·½ÏòÎ
     auto playerLoaction = player->GetActorLocation();
     auto locationVec = playerLoaction - location;
     auto DeltaDistance = locationVec.X * locationVec.X + locationVec.Y * locationVec.Y + locationVec.Z * locationVec.Z - Distance * Distance;
-    if (DeltaDistance > 0) {
+    if (DeltaDistance > 0) 
+    {
         if (MoveCD < 0)
             AddMovementInput(locationVec, Speed, false);
         else
             MoveCD -= deltaSeconds;
     }
-    else {
+    else 
+    {
         MoveCD = MaxMoveCD;
     }
 }
@@ -71,7 +73,8 @@ void AWoodenMan::AttackPlayer()
         auto myBullet = GetWorld()->SpawnActor<AWoodenManBullet>(BulletClass,
             GetActorLocation(),
             FRotator(0.0, 0.0, 0.0));
-        if (myBullet) {//·ÀÖ¹bug
+        if (myBullet) 
+        {//·ÀÖ¹bug
             myBullet->SetSource(this);
             myBullet->SetDamage(Attack);
         }

@@ -8,7 +8,8 @@
 
 
 USTRUCT(Blueprintable)
-struct FMazeNode {
+struct FMazeNode 
+{
 	GENERATED_BODY()
 
 	int32 x, y;

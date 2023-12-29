@@ -5,32 +5,38 @@
 #include "PaperGroupedSpriteComponent.h"
 #include "PlayerBase.h"
 
-AEnemyRoom::AEnemyRoom() {
+AEnemyRoom::AEnemyRoom() 
+{
 	LockSprites = CreateDefaultSubobject<UPaperGroupedSpriteComponent>(TEXT("Lock Sprites"));
 }
 
-void AEnemyRoom::BeginPlay() {
+void AEnemyRoom::BeginPlay() 
+{
 	Super::BeginPlay();
 
 	DelegateEnter.BindUFunction(this, "OnEnter");
 	DetectSphere->OnComponentBeginOverlap.Add(DelegateEnter);
 }
 
-void AEnemyRoom::SetEnemyTypes(TArray<TSubclassOf<AEnemyBase>> types) {
+void AEnemyRoom::SetEnemyTypes(TArray<TSubclassOf<AEnemyBase>> types)
+{
 	EnemyTypes = types;
 }
 
-void AEnemyRoom::SpawnEnemy() {
+void AEnemyRoom::SpawnEnemy() 
+{
 	UE_LOG(LogTemp, Warning, TEXT("SPAWNING ENEMIES"));
 	if (EnemyTypes.IsEmpty()) EnemyTypes.Emplace(AEnemyBase::StaticClass());  // 若无生成怪物种类，则默认生成Base
 
 	auto spawnRange = EdgeLength / 2.0f * FMath::Sqrt(3.0);  // 生成怪物范围，为房间的六边形内切圆
 
-	for (int i = 0; i < SpawnNum; ++i) {
+	for (int i = 0; i < SpawnNum; ++i) 
+	{
 		auto randIndex = FMath::RandRange(0, EnemyTypes.Num() - 1);
 
 		AEnemyBase* newEnemy = NULL;
-		while(newEnemy == NULL) {
+		while(newEnemy == NULL) 
+		{
 			// 设置随机坐标偏移
 			auto location = GetCenterLocation();
 			auto radius = FMath::RandRange(0.0, spawnRange);
@@ -39,7 +45,8 @@ void AEnemyRoom::SpawnEnemy() {
 			location.Z += radius * FMath::Sin(radian);
 		
 			newEnemy = GetWorld()->SpawnActor<AEnemyBase>(EnemyTypes[randIndex], location, GetActorRotation());
-			if(newEnemy) {
+			if(newEnemy) 
+			{
 				newEnemy->EnemyDie.AddUFunction(this, "OnEnemyDie");
 				EnemyInRoom.Emplace(newEnemy);
 			}

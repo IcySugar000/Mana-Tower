@@ -17,7 +17,8 @@ void UMagicCircleButton::NativeConstruct()
 
 void UMagicCircleButton::adjustLine()
 {
-	if (nowLining) {
+	if (nowLining)
+	{
 		auto controller = GetWorld()->GetFirstPlayerController();
 		float mouseLocationX = 0.0f;
 		float mouseLocationY = 0.0f;
@@ -46,7 +47,8 @@ FReply UMagicCircleButton::NativeOnMouseButtonDown(const FGeometry& InGeometry, 
 	return FReply::Handled();
 }
 
-void UMagicCircleButton::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) {
+void UMagicCircleButton::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) 
+{
 	ButtonEnter.ExecuteIfBound(ButtonId);
 	Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
 }
@@ -60,7 +62,8 @@ void UMagicCircleButton::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
 void UMagicCircleButton::getLine()
 {
 	auto newLine = CreateWidget<UMagicCircleLine>(this, MagicCircleLineClass);
-	if (MagicCircleLineClass) {
+	if (MagicCircleLineClass) 
+	{
 
 		nowLining = newLine;
 		Lines.Emplace(newLine);
@@ -80,7 +83,8 @@ void UMagicCircleButton::getLine()
 	}
 }
 
-void UMagicCircleButton::lockLine(FVector2D dstPos) {
+void UMagicCircleButton::lockLine(FVector2D dstPos) 
+{
 	// UE_LOG(LogTemp, Warning, TEXT("Button Lockline"));
 
 	UCanvasPanelSlot* thisSlot = Cast<UCanvasPanelSlot>(this->Slot);
@@ -103,7 +107,8 @@ void UMagicCircleButton::lockLine(FVector2D dstPos) {
 
 void UMagicCircleButton::clearLines()
 {
-	if (nowLining) {
+	if (nowLining) 
+	{
 		nowLining->RemoveFromParent();
 		nowLining = nullptr;
 	}
