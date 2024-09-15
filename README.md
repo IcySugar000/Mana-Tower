@@ -52,6 +52,7 @@ https://github.com/IcySugar000/Mana-Tower/wiki
 - 通关页面
 - 金币系统
 - 科乐美秘技
+- 提示信息
 
 ---
 
